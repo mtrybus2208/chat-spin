@@ -1,0 +1,12 @@
+<ng-template #selectListWrapper>
+  <div class="select-list">
+    <ul
+      class="select-list__options-container"
+      role="listbox"
+      id="select-list"
+      (click)="closed.emit()"
+    >
+      <ng-content></ng-content>
+    </ul>
+  </div>
+</ng-template>

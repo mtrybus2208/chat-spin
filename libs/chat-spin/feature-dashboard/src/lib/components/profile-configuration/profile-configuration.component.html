@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="profile-config">
+    {{ result }} {{ form.value | json }}
+    <p #myDropdown>dropdown kiedystam</p>
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline">
+        <mat-label>O2utline form field</mat-label>
+        <input matInput placeholder="Placeholder" />
+      </mat-form-field>
+      <input type="text" libRainbow />
+      <lib-custom-select
+        label="Zmienina"
+        [options]="options"
+        formControlName="gender"
+      ></lib-custom-select>
+    </form>
+    <br />
+    <button (click)="getResult()">jaka wybrales?</button>
+  </div>
+</div>

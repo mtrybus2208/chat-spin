@@ -14,7 +14,17 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@mtrybus/feature-chat": ["libs/chat-spin/feature-chat/src/index.ts"],
+      "@mtrybus/feature-dashboard": [
+        "libs/chat-spin/feature-dashboard/src/index.ts"
+      ],
+      "@mtrybus/feature-information": [
+        "libs/chat-spin/feature-information/src/index.ts"
+      ],
+      "@mtrybus/ui": ["libs/chat-spin/shared/ui/src/index.ts"],
+      "@mtrybus/util-directives": ["libs/shared/util-directives/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,0 +1,15 @@
+.select-list-option {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 1.15rem;
+  padding: 0.675em 1em;
+
+  label {
+    width: 100%;
+    padding: 8px 10px;
+    cursor: pointer;
+  }
+}
