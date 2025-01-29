@@ -1,28 +1,28 @@
-<div class="select">
-  <button
-    class="select__button"
-    role="combobox"
-    aria-label="select button"
-    aria-haspopup="listbox"
-    aria-expanded="false"
-    aria-controls="select-dropdown"
-    [libCustomSelectTriggerFor]="dropdown"
-  >
-    <span *ngIf="label" class="select__selected">{{
-      value || placeholder()
-    }}</span>
-    <span class="arrow"></span>
-  </button>
-
-  <lib-custom-select-list #dropdown>
-    @for(option of options(); track option.label) {
-    <lib-custom-select-option [value]="option.value">
-      {{ option.label }}
-    </lib-custom-select-option>
-    }
-  </lib-custom-select-list>
+<div class="label">
+  <span class="label-text">{{ label() }}</span>
+</div>
+<button
+  #selectTriggerRef="libCustomSelectTriggerFor"
+  class="select select-bordered w-full flex items-center"
+  role="combobox"
+  aria-label="select button"
+  aria-haspopup="listbox"
+  aria-expanded="false"
+  [attr.aria-expanded]="selectTriggerRef.isDropdownOpen()"
+  aria-controls="select-dropdown"
+  [libCustomSelectTriggerFor]="dropdown"
+  (keydown)="onKeyDown($event)"
+>
+  <span class="select__selected">{{ value()?.label || placeholder() }}</span>
+</button>
+<div class="label">
+  <span class="label-text-alt">{{ hint() }}</span>
 </div>
 
-<!-- https://blog.logrocket.com/creating-custom-select-dropdown-css/ -->
-<!-- https://codegen.studio/blog/kwalx2/create-a-custom-select-component-with-typeahead-built-on-angular-cdk-in-angular/ -->
-<!-- https://medium.com/codeshakeio/build-a-dropdown-component-using-angular-cdk-fa45455e6a73 -->
+<lib-custom-select-list #dropdown (keydown)="onKeyDown($event)">
+  @for(option of options(); track option.value) {
+  <lib-custom-select-option [option]="option" (click)="selectOption(option)">
+    {{ option.label }}
+  </lib-custom-select-option>
+  }
+</lib-custom-select-list>

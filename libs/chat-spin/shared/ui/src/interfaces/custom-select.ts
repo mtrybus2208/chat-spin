@@ -1,6 +1,6 @@
-import { EventEmitter, TemplateRef } from '@angular/core';
+import { OutputEmitterRef, TemplateRef } from '@angular/core';
 
 export interface CustomSelect {
   templateRef: TemplateRef<unknown>;
-  readonly closed: EventEmitter<void>;
+  closed: OutputEmitterRef<void>;
 }

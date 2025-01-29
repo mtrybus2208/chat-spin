@@ -4,15 +4,14 @@ import {
   inject,
   ElementRef,
   input,
-  effect,
-  Input,
   ViewContainerRef,
+  signal,
 } from '@angular/core';
 import { Overlay, OverlayRef, OverlayConfig } from '@angular/cdk/overlay';
-
-import { CustomSelectListComponent } from '../custom-select-list/custom-select-list.component';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { CustomSelect } from '../interfaces';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { merge, Subscription } from 'rxjs';
 
 @Directive({
   selector: '[libCustomSelectTriggerFor]',
@@ -20,42 +19,31 @@ import { TemplatePortal } from '@angular/cdk/portal';
   host: {
     '(click)': 'toggleDropdown()',
   },
+  exportAs: 'libCustomSelectTriggerFor',
 })
 export class CustomSelectTriggerForDirective {
-  dropdownPanel = input<CustomSelectListComponent | null>(null, {
+  public dropdownPanel = input.required<CustomSelect>({
     alias: 'libCustomSelectTriggerFor',
   });
+  public isDropdownOpen = signal(false);
 
   private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private overlay = inject(Overlay);
   private viewContainerRef = inject(ViewContainerRef);
-
   private overlayRef!: OverlayRef;
-  private isDropdownOpen = false;
-
-  constructor() {
-    effect(() => {
-      console.log(`The current`);
-      console.log({ dropdownPanel: this.dropdownPanel() });
-    });
-  }
+  private dropdownClosingActionsSub = Subscription.EMPTY;
 
   toggleDropdown(): void {
-    this.isDropdownOpen ? this.destroyDropdown() : this.openDropdown();
+    this.isDropdownOpen() ? this.destroyDropdown() : this.openDropdown();
   }
 
-  private destroyDropdown(): void {
-    this.overlayRef.detach();
-    this.isDropdownOpen = false;
-  }
-
-  private openDropdown(): void {
+  openDropdown(): void {
+    this.isDropdownOpen.set(true);
     const dropdownPanel = this.dropdownPanel();
+
     if (!dropdownPanel) {
       return;
     }
-
-    this.isDropdownOpen = true;
 
     this.overlayRef = this.overlay.create(this.getOverlayConfig());
 
@@ -65,9 +53,23 @@ export class CustomSelectTriggerForDirective {
     );
 
     this.overlayRef.attach(templatePortal);
-
     this.syncWidth();
-    this.overlayRef.backdropClick().subscribe(() => this.destroyDropdown());
+    this.dropdownClosingActionsSub = this.dropdownClosingActions().subscribe(
+      () => this.destroyDropdown()
+    );
+  }
+
+  destroyDropdown(): void {
+    this.overlayRef.detach();
+    this.isDropdownOpen.set(false);
+    this.dropdownClosingActionsSub.unsubscribe();
+  }
+
+  private dropdownClosingActions() {
+    const backdropClick$ = this.overlayRef.backdropClick();
+    const dropdownClosed$ = outputToObservable(this.dropdownPanel().closed);
+
+    return merge(backdropClick$, dropdownClosed$);
   }
 
   private syncWidth(): void {
@@ -101,11 +103,9 @@ export class CustomSelectTriggerForDirective {
             offsetY: -4,
           },
         ]),
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      scrollStrategy: this.overlay.scrollStrategies.close(),
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-transparent-backdrop',
     });
   }
 }
-
-// https://blog.angular-university.io/angular-signal-components/

@@ -1,16 +1,21 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   forwardRef,
   input,
+  viewChild,
+  viewChildren,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CustomSelectTriggerForDirective } from './custom-select-trigger-for.directive';
 import { CustomSelectListComponent } from '../custom-select-list/custom-select-list.component';
 import { CustomSelectOptionComponent } from '../custom-select-option/custom-select-option.component';
 import { Option } from '../interfaces';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 
+import { AbstractValueAccessor } from '../classes/value-accessor.abstract';
 @Component({
   selector: 'lib-custom-select',
   standalone: true,
@@ -21,7 +26,6 @@ import { Option } from '../interfaces';
     CustomSelectOptionComponent,
   ],
   templateUrl: './custom-select.component.html',
-  styleUrl: './custom-select.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
@@ -32,56 +36,131 @@ import { Option } from '../interfaces';
   ],
   host: {},
 })
-export class CustomSelectComponent implements ControlValueAccessor {
-  label = input('Select label');
-  formControlName = input('');
-  options = input<Option[]>([]);
-  placeholder = input('Select an option...');
+export class CustomSelectComponent
+  extends AbstractValueAccessor<Option>
+  implements ControlValueAccessor, AfterViewInit
+{
+  public label = input('');
+  public hint = input('');
+  public formControlName = input('');
+  public options = input<Option[]>([]);
+  public placeholder = input('Select an option...');
+  public optionItems = viewChildren(CustomSelectOptionComponent);
+  public selectTriggerRef =
+    viewChild<CustomSelectTriggerForDirective>('selectTriggerRef');
 
-  // isSelectOpen = false;
-  value: string | null = null;
+  private keyManager!: ActiveDescendantKeyManager<CustomSelectOptionComponent>;
+  private selectedOption!: CustomSelectOptionComponent;
+  private lastKeyPressed = '';
+  private keyPressIndex = 0;
 
-  writeValue(value: string): void {
-    this.value = value;
-  }
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onChange = (value: string) => {};
-  onTouched = () => {};
-
-  registerOnChange(fn: (value: string) => void): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-  setDisabledState(isDisabled: boolean): void {
-    console.log('setDisabledState');
+  ngAfterViewInit(): void {
+    this.keyManager = new ActiveDescendantKeyManager(this.optionItems())
+      .withHomeAndEnd()
+      .withWrap()
+      .withPageUpDown();
   }
 
-  openDropdown() {
-    console.log('open');
+  selectOption(option: Option | null): void {
+    this.value.set(option);
+    this.onChange(option);
+    this.selectTriggerRef()?.destroyDropdown();
   }
 
-  destroyDropdown() {
-    console.log('close');
-    // this.isSelectOpen = false;
+  onKeyDown(event: KeyboardEvent): void {
+    if (this.selectTriggerRef()?.isDropdownOpen()) {
+      this.handleVisibleDropdown(event);
+    } else {
+      this.handleHiddenDropdown(event);
+    }
   }
 
-  toggleDropdown(event: any) {
-    console.log({ event });
-    // this.isSelectOpen = !this.isSelectOpen;
+  private handleHiddenDropdown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+      case 'ArrowDown':
+      case 'ArrowUp':
+        this.selectTriggerRef()?.openDropdown();
+        if (this.selectedOption) {
+          this.selectedOption.scrollIntoView();
+        }
+        event.preventDefault();
+        event.stopPropagation();
+        break;
+      default:
+        event.stopPropagation();
+        // eslint-disable-next-line no-case-declarations
+        const firstFound = this.getOptionStartingWith(event.key);
+
+        if (firstFound) {
+          this.writeValue(firstFound.option() || null);
+        }
+    }
   }
 
-  selectOption(option: { value: string; label: string }): void {
-    this.value = option.value;
-    this.onChange(this.value);
-    this.onTouched();
-    this.destroyDropdown();
+  private handleVisibleDropdown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        if (this.keyManager.activeItem) {
+          this.selectOption(this.keyManager.activeItem.option() || null);
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        break;
+      case 'Escape':
+        this.selectTriggerRef()?.toggleDropdown();
+        event.preventDefault();
+        event.stopPropagation();
+        break;
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowRight':
+      case 'ArrowLeft':
+        this.keyManager.onKeydown(event);
+        this.keyManager.activeItem?.scrollIntoView();
+        event.preventDefault();
+        break;
+      case 'Tab':
+        this.keyManager.onKeydown(event);
+        this.keyManager.activeItem?.scrollIntoView();
+        break;
+      case 'PageUp':
+      case 'PageDown':
+        event.preventDefault();
+        break;
+      default:
+        event.stopPropagation();
+        // eslint-disable-next-line no-case-declarations
+        const firstFound = this.getOptionStartingWith(event.key);
+        if (firstFound) {
+          firstFound.scrollIntoView();
+          this.keyManager.setActiveItem(firstFound);
+        }
+    }
+  }
+
+  private getOptionStartingWith(key: string): CustomSelectOptionComponent {
+    if (this.lastKeyPressed === key) {
+      this.keyPressIndex++;
+    } else {
+      this.keyPressIndex = 0;
+    }
+    this.lastKeyPressed = key;
+    const optionsStartingWithKey = this.optionItems().filter((option) => {
+      return (
+        !option.isDisabled &&
+        option
+          .getOptionElement()
+          ?.textContent?.trim()
+          .toLocaleLowerCase()
+          .startsWith(key.toLocaleLowerCase())
+      );
+    });
+
+    return optionsStartingWithKey[
+      this.keyPressIndex % optionsStartingWithKey.length
+    ];
   }
 }
-
-// !!!!!wazne zrob pozniej z cdk zeby zamykalo naokoklo
-// https://medium.com/codeshakeio/build-a-dropdown-component-using-angular-cdk-fa45455e6a73
-
-// https://blog.bitsrc.io/how-ive-created-reusable-select-in-angular-16-574b9fb89e37

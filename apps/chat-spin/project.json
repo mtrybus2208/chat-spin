@@ -19,7 +19,8 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/chat-spin/public"
+            "input": "libs/assets",
+            "output": "assets"
           }
         ],
         "styles": ["apps/chat-spin/src/styles.scss"],

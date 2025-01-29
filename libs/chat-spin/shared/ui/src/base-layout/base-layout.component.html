@@ -1,4 +1,4 @@
-<div class="base-layout">
+<!-- <div class="base-layout">
   <nav mat-tab-nav-bar [tabPanel]="tabPanel">
     @for (link of links; track link.value) {
     <a
@@ -15,4 +15,44 @@
   <mat-tab-nav-panel #tabPanel>
     <ng-content select="[appContent]"></ng-content>
   </mat-tab-nav-panel>
+</div> -->
+
+<div class="base-layout">
+  <nav role="tablist" class="py-4 px-3 bg-neutral flex">
+    @for (link of links; track link.value) {
+    <a
+      role="tab"
+      class="rounded-md grow text-center py-2"
+      (click)="activeLink = link"
+      [routerLink]="link.value"
+      [ngClass]="{ 'bg-base-100': activeLink.value === link.value }"
+    >
+      {{ link.label }}</a
+    >
+
+    }
+  </nav>
+  <mat-tab-nav-panel #tabPanel>
+    <ng-content select="[appContent]"></ng-content>
+  </mat-tab-nav-panel>
 </div>
+
+<!-- <div class="base-layout">
+  <nav role="tablist" class="tabs tabs-boxed tabs-md py-6 px-3">
+    @for (link of links; track link.value) {
+    <a
+      role="tab"
+      class="tab"
+      (click)="activeLink = link"
+      [routerLink]="link.value"
+      [ngClass]="{ 'tab-active': activeLink.value === link.value }"
+    >
+      {{ link.label }}</a
+    >
+
+    }
+  </nav>
+  <mat-tab-nav-panel #tabPanel>
+    <ng-content select="[appContent]"></ng-content>
+  </mat-tab-nav-panel>
+</div> -->
