@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mtrybus/data-access-chat": [
+        "libs/chat-spin/shared/data-access-chat/src/index.ts"
+      ],
       "@mtrybus/feature-chat": ["libs/chat-spin/feature-chat/src/index.ts"],
       "@mtrybus/feature-dashboard": [
         "libs/chat-spin/feature-dashboard/src/index.ts"

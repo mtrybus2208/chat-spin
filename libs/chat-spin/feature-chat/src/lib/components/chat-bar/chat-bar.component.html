@@ -1,16 +1,57 @@
-<div class="flex gap-8 items-center px-8">
-  <button class="btn border-slate-400">Leave</button>
+<div
+  class="flex flex-col items-center bg-base-300 rounded-lg border border-zinc-700 px-5 py-3"
+>
+  <!-- <button class="btn border-slate-400">Leave</button> -->
+  <div class="w-full">
+    <textarea
+      class="textarea textarea-ghost textarea-xs w-full focus:bg-transparent focus:border-none focus:outline-none text-base px-4"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="5"
+    ></textarea>
+  </div>
+  <div class="w-full flex">
+    <div class="flex flex-1 items-center justify-start">
+      <div class="tooltip" data-tip="End the chat">
+        <button class="btn btn-square" (click)="onCloseChat()">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="End the chat"
+            fontIcon="close"
+          ></mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="flex flex-1 items-center justify-end gap-4">
+      <div class="tooltip" data-tip="Attach images (max 5, 10MB each)">
+        <button class="btn btn-md btn-square">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Attach images (max 5, 10MB each)"
+            fontIcon="attach_file"
+          ></mat-icon>
+        </button>
+      </div>
+      <div class="tooltip" data-tip="Send message">
+        <button class="btn btn-square btn-secondary">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Send message"
+            fontIcon="send"
+          ></mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
 
-  <!-- <textarea
-    placeholder="Bio"
-    class="textarea textarea-bordered textarea-xs w-full px-4"
-  ></textarea> -->
-  <input
+  <!-- <input
     type="text"
-    placeholder="Type here"
+    placeholder="Type here1"
     class="input input-bordered w-full"
-  />
-  <button class="btn border-slate-400">Send</button>
+  /> -->
+  <!-- <lib-chat-input></lib-chat-input> -->
+
+  <!-- <button class="btn border-slate-400">Send</button> -->
 
   <!-- md -->
 </div>

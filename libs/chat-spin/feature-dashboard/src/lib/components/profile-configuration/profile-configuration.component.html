@@ -35,7 +35,9 @@
         formControlName="preferences"
         hint="Select whom you prefer to chat with"
       ></lib-custom-select>
-      <button class="btn btn-block btn-secondary">Submit</button>
+      <button class="btn btn-block btn-secondary" (click)="connectHandler()">
+        Submit
+      </button>
     </form>
     <br />
   </div>

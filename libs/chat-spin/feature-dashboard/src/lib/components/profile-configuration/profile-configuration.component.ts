@@ -1,9 +1,12 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
   OnInit,
+  AfterViewInit,
+  PLATFORM_ID,
+  OnDestroy,
 } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,6 +24,7 @@ import {
 } from '@angular/forms';
 import { AnimationItem } from 'lottie-web';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { ChatWebSocketService } from '@mtrybus/data-access-chat';
 
 export interface IProfileConfigFormGroup {
   gender?: FormControl<Option | null>;
@@ -64,6 +68,9 @@ export class ProfileConfigurationComponent implements OnInit {
     loop: false,
   };
 
+  private readonly chatWebSocketService = inject(ChatWebSocketService);
+  private readonly platformId = inject(PLATFORM_ID);
+
   readonly form = inject(FormBuilder).group<IProfileConfigFormGroup>({
     preferences: new FormControl<string | null>(null, {
       validators: [Validators.required],
@@ -81,6 +88,10 @@ export class ProfileConfigurationComponent implements OnInit {
         value,
       });
     });
+  }
+
+  connectHandler() {
+    this.chatWebSocketService.connect();
   }
 
   getResult() {

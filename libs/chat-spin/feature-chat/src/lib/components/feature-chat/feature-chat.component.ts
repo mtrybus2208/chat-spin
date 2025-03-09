@@ -6,6 +6,7 @@ import { ChatMessagesListComponent } from '../chat-messages-list/chat-messages-l
 import { ChatMessage } from '../../types';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
 import { ChatBarComponent } from '../chat-bar/chat-bar.component';
+import { ChatWebSocketService } from '@mtrybus/data-access-chat';
 
 @Component({
   selector: 'lib-feature-chat',
@@ -20,6 +21,8 @@ import { ChatBarComponent } from '../chat-bar/chat-bar.component';
   templateUrl: './feature-chat.component.html',
 })
 export class FeatureChatComponent {
+  constructor(private chatWebSocketService: ChatWebSocketService) {}
+
   public chatMessages = signal<ChatMessage[]>([
     {
       text: 'Cześć, jak się masz?',
@@ -70,4 +73,9 @@ export class FeatureChatComponent {
       user: { id: 4, name: 'Michał' },
     },
   ]);
+
+  onCloseChat(): void {
+    console.log('close');
+    this.chatWebSocketService.close();
+  }
 }

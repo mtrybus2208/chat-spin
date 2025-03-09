@@ -1,13 +1,15 @@
-<div class="p-8 pb-[60px]">
-  <lib-room-info></lib-room-info>
-  <lib-chat-messages-list>
-    @for(message of chatMessages(); track message.createdAt) {
-    <lib-chat-message [message]="message"></lib-chat-message>
-    }
-  </lib-chat-messages-list>
-  <div
-    class="flex items-center fixed bottom-0 left-0 right-0 bg-base-200 h-[80px]"
-  >
-    <lib-chat-bar></lib-chat-bar>
+<div class="max-w-5xl m-auto">
+  <div class="p-8 pb-[60px]">
+    <lib-room-info></lib-room-info>
+    <lib-chat-messages-list>
+      @for(message of chatMessages(); track message.createdAt) {
+      <lib-chat-message [message]="message"></lib-chat-message>
+      }
+    </lib-chat-messages-list>
   </div>
+</div>
+<div
+  class="max-w-5xl m-auto flex items-center fixed bottom-0 left-0 right-0 p-8 bg-base-200"
+>
+  <lib-chat-bar (closeChat)="onCloseChat()"></lib-chat-bar>
 </div>
