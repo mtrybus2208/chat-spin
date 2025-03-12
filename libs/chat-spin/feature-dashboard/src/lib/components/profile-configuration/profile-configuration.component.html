@@ -1,14 +1,13 @@
 <div class="container">
   <div class="profile-config bg-base-100 p-8 rounded-lg">
-    <div class="flex justify-around gap-2 mb-8 min-h-[150px]">
+    <div class="flex justify-around gap-2 mb-12 min-h-[150px]">
       <ng-lottie [options]="lottieOptions" width="150px" />
       <div class="flex flex-col justify-center gap-3">
         <h2 class="text-xl">Welcome to <strong>Chat Spin </strong>app!</h2>
         <p class="">Tell about yourself</p>
       </div>
-    </div>
 
-    <form [formGroup]="form" class="flex flex-col gap-8">
+      <!-- <form [formGroup]="form" class="flex flex-col gap-8">
       <label class="form-control w-full">
         <div class="label">
           <span class="label-text">What is your name?</span>
@@ -38,7 +37,52 @@
       <button class="btn btn-block btn-secondary" (click)="connectHandler()">
         Submit
       </button>
-    </form>
-    <br />
+    </form> -->
+    </div>
+    <div class="flex flex-col justify-center gap-3 mb-12">
+      <p class="text-base-content opacity-80 leading-relaxed">
+        Connect with random people worldwide in just one click! Chat Spin offers
+        complete anonymity, allowing you to express yourself freely without
+        revealing your identity. Our platform matches you with interesting
+        strangers instantly - make new friends, share stories, or just enjoy
+        spontaneous conversations.
+      </p>
+    </div>
+
+    <div class="bg-base-200 p-4 rounded-lg mb-12">
+      <h3 class="text-lg font-semibold mb-2">Why Choose Chat Spin?</h3>
+      <ul class="list-disc pl-5 space-y-2 text-base-content opacity-80">
+        <li>
+          <span class="font-medium">Instant Connections</span> - No waiting,
+          start chatting immediately
+        </li>
+        <li>
+          <span class="font-medium">Complete Anonymity</span> - Your identity
+          remains hidden
+        </li>
+        <li>
+          <span class="font-medium">Global Community</span> - Meet people from
+          all around the world
+        </li>
+        <li>
+          <span class="font-medium">No Registration</span> - Jump right in
+          without creating an account
+        </li>
+        <li>
+          <span class="font-medium">Free to Use</span> - Enjoy all features
+          without any cost
+        </li>
+      </ul>
+    </div>
+
+    <div class="mt-8 flex flex-col gap-2">
+      <button class="btn btn-block btn-secondary" (click)="connectHandler()">
+        <span class="material-icons mr-2">chat</span>
+        Start Chatting Now
+      </button>
+      <p class="text-center text-sm font-medium">
+        Your privacy is our priority - no registration required!
+      </p>
+    </div>
   </div>
 </div>

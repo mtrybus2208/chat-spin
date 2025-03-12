@@ -1,0 +1,12 @@
+<ul class="menu menu-lg flex-1 p-0">
+  @for(link of links(); track link.value) {
+  <li>
+    <a
+      [routerLink]="link.value"
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >{{ link.label }}</a
+    >
+  </li>
+  }
+</ul>

@@ -25,7 +25,31 @@ export class FeatureChatComponent {
 
   public chatMessages = signal<ChatMessage[]>([
     {
-      text: 'Cześć, jak się masz?',
+      text: 'Hello, what you doing',
+      createdAt: Date.now(),
+      isHost: true,
+      user: { id: 1, name: 'Ania' },
+    },
+    {
+      text: 'Hello, what you doing',
+      createdAt: Date.now(),
+      isHost: true,
+      user: { id: 1, name: 'Ania' },
+    },
+    {
+      text: 'Hello, what you doing',
+      createdAt: Date.now(),
+      isHost: true,
+      user: { id: 1, name: 'Ania' },
+    },
+    {
+      text: 'Hello, what you doing',
+      createdAt: Date.now(),
+      isHost: true,
+      user: { id: 1, name: 'Ania' },
+    },
+    {
+      text: 'Hello, what you doing',
       createdAt: Date.now(),
       isHost: true,
       user: { id: 1, name: 'Ania' },
