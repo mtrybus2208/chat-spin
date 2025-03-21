@@ -1,14 +1,40 @@
-<div class="flex flex-col w-full max-h-[calc(100vh-65px)] md:max-h-screen">
-  <div class="flex-1 overflow-y-auto">
+<div
+  class="flex flex-col w-full max-h-[calc(100vh-65px)] md:max-h-screen h-full"
+>
+  @if(isConnected()) {
+  <div class="flex-1 overflow-y-auto" #scrollContainer>
     <lib-room-info></lib-room-info>
     <lib-chat-messages-list>
-      @for(message of chatMessages(); track message.createdAt) {
-      <lib-chat-message [message]="message"></lib-chat-message>
+      @for(message of messagesArray(); track message.createdAt) {
+
+      <lib-chat-message [message]="message">
+        <lib-avatar-placeholder
+          avatar
+          [name]="message.isHost ? avatarNames[0] : avatarNames[1]"
+        ></lib-avatar-placeholder>
+      </lib-chat-message>
       }
     </lib-chat-messages-list>
   </div>
 
   <div class="max-w-full bg-base-200">
-    <lib-chat-bar (closeChat)="onCloseChat()"></lib-chat-bar>
+    <lib-chat-bar
+      (closeChat)="onCloseChat()"
+      (sendMessage)="onSendMessage($event)"
+    ></lib-chat-bar>
   </div>
+  } @else {
+  <div class="flex justify-center items-center h-full">
+    <div class="flex flex-col gap-4">
+      <ng-lottie
+        class="app-loader-filter pl-8"
+        [options]="lottieOptions"
+        width="150px"
+      />
+      <p class="text-center text-base-content opacity-80 leading-relaxed">
+        ...Looking for a chat partner...
+      </p>
+    </div>
+  </div>
+  }
 </div>

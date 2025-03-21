@@ -1,4 +1,10 @@
-import { Component, input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  input,
+  viewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ChatMessage } from '../../types';
@@ -10,5 +16,5 @@ import { ChatMessage } from '../../types';
   templateUrl: './chat-messages-list.component.html',
 })
 export class ChatMessagesListComponent {
-  public messages = input<ChatMessage[]>([]);
+  readonly messages = input<ChatMessage[]>([]);
 }

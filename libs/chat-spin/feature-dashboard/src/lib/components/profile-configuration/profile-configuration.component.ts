@@ -25,6 +25,7 @@ import {
 import { AnimationItem } from 'lottie-web';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
 import { ChatWebSocketService } from '@mtrybus/data-access-chat';
+import { Router } from '@angular/router';
 
 export interface IProfileConfigFormGroup {
   gender?: FormControl<Option | null>;
@@ -65,11 +66,12 @@ export class ProfileConfigurationComponent implements OnInit {
   public result = '';
   public lottieOptions: AnimationOptions = {
     path: '/assets/chat-spin/images/logo.json',
-    loop: false,
+    loop: true,
   };
 
   private readonly chatWebSocketService = inject(ChatWebSocketService);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly router = inject(Router);
 
   readonly form = inject(FormBuilder).group<IProfileConfigFormGroup>({
     preferences: new FormControl<string | null>(null, {
@@ -91,14 +93,11 @@ export class ProfileConfigurationComponent implements OnInit {
   }
 
   connectHandler() {
-    this.chatWebSocketService.connect();
+    this.router.navigate(['/chat']);
   }
 
   getResult() {
     const formValue = this.form.value;
-    console.log({
-      formValue,
-    });
 
     this.result = `gender is: ${formValue.gender}`;
   }

@@ -4,3 +4,4 @@ export * from './custom-select/custom-select.component';
 export * from './custom-select/custom-select-trigger-for.directive';
 export * from './interfaces';
 export * from './classes';
+export * from './avatar-placeholder';

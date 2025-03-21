@@ -1,9 +1,12 @@
-<div
-  class="flex flex-col items-center bg-base-300 border-t border-zinc-700 px-5 py-3"
+<form
+  class="flex flex-col items-center bg-base-300 border-t border-zinc-700 px-5 py-3 overflow-x-hidden"
+  (ngSubmit)="onSendMessage()"
+  [formGroup]="form"
 >
   <!-- <button class="btn border-slate-400">Leave</button> -->
   <div class="w-full">
     <textarea
+      formControlName="message"
       class="textarea textarea-ghost textarea-xs w-full focus:bg-transparent focus:border-none focus:outline-none text-base px-4"
       cdkTextareaAutosize
       cdkAutosizeMinRows="1"
@@ -23,7 +26,7 @@
       </div>
     </div>
     <div class="flex flex-1 items-center justify-end gap-4">
-      <div class="tooltip" data-tip="Attach images (max 5, 10MB each)">
+      <div class="tooltip" data-tip="Attach images (max 5, 10MB)">
         <button class="btn btn-md btn-square">
           <mat-icon
             aria-hidden="false"
@@ -32,8 +35,12 @@
           ></mat-icon>
         </button>
       </div>
-      <div class="tooltip" data-tip="Send message">
-        <button class="btn btn-square btn-secondary">
+      <div class="tooltip">
+        <button
+          class="btn btn-square btn-secondary"
+          [disabled]="form.invalid"
+          type="submit"
+        >
           <mat-icon
             aria-hidden="false"
             aria-label="Send message"
@@ -43,15 +50,4 @@
       </div>
     </div>
   </div>
-
-  <!-- <input
-    type="text"
-    placeholder="Type here1"
-    class="input input-bordered w-full"
-  /> -->
-  <!-- <lib-chat-input></lib-chat-input> -->
-
-  <!-- <button class="btn border-slate-400">Send</button> -->
-
-  <!-- md -->
-</div>
+</form>
