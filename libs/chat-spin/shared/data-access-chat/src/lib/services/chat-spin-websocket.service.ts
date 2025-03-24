@@ -2,11 +2,7 @@ import { DestroyRef, inject, Injectable, OnDestroy } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { BehaviorSubject, Subject, of, catchError } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-export interface SocketMessage {
-  action: string;
-  data: unknown;
-}
+import { EventAction, SocketMessage } from '@mtrybus/util-types';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +36,7 @@ export class ChatWebSocketService implements OnDestroy {
           this.connectionStatusSubject.next(true);
 
           this.sendMessage({
-            action: 'userMatch',
+            action: EventAction.USER_MATCH,
           });
         },
       },

@@ -1,7 +1,7 @@
 import {
   Component,
   ElementRef,
-  ViewChild,
+  viewChild,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,16 +14,20 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatInputComponent {
-  @ViewChild('chatInput') chatInputRef!: ElementRef<HTMLTextAreaElement>;
+  readonly chatInputRef =
+    viewChild<ElementRef<HTMLTextAreaElement>>('chatInput');
 
   adjustTextareaHeight(): void {
-    const textarea = this.chatInputRef.nativeElement;
-    textarea.style.height = 'auto'; // Resetowanie wysokości
-    textarea.style.height = `${textarea.scrollHeight}px`; // Ustawienie wysokości na podstawie zawartości
+    const textarea = this.chatInputRef()?.nativeElement;
+    if (!textarea) {
+      return;
+    }
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
   }
 
   onShiftEnter(event: Event): void {
-    event.preventDefault(); // Zapobieganie domyślnej akcji (nowa linia)
+    event.preventDefault();
     this.adjustTextareaHeight();
   }
 }

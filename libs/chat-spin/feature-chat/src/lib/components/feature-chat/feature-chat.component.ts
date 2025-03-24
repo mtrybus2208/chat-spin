@@ -1,6 +1,5 @@
 import {
   Component,
-  DestroyRef,
   effect,
   inject,
   OnInit,
@@ -22,11 +21,12 @@ import { ChatMessageComponent } from '../chat-message/chat-message.component';
 import { ChatBarComponent } from '../chat-bar/chat-bar.component';
 import { ChatWebSocketService } from '@mtrybus/data-access-chat';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   AvatarPlaceholderComponent,
   SharedAvatarPlaceholderService,
 } from '@mtrybus/ui';
+import { EventAction } from '@mtrybus/util-types';
 
 import { filter } from 'rxjs';
 @Component({
@@ -48,6 +48,7 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
   private readonly sharedAvatarPlaceholderService = inject(
     SharedAvatarPlaceholderService
   );
+  private readonly platformId = inject(PLATFORM_ID);
 
   readonly avatarNames =
     this.sharedAvatarPlaceholderService.getUniqueAvatarNamesPair();
@@ -78,6 +79,7 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly connectionStatus = toSignal(
     this.chatWebSocketService.connectionStatus$
   );
+
   readonly connectionStatusEffect = effect(() => {
     const connectionStatus = this.connectionStatus();
     console.log({
@@ -87,6 +89,7 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
   });
+
   readonly messagesArray = signal<ChatMessage[]>([]);
 
   readonly conversationEffect = effect(
@@ -115,16 +118,9 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   );
 
-  loll = effect(() => {
-    const msgs = this.messagesArray();
+  readonly scrollToBottomEffect = effect(() => {
     this.scrollToBottom();
-    // Czekamy na następny cykl, żeby mieć pewność że DOM się zaktualizował
-    // setTimeout(() => this.scrollToBottom(), 0);
   });
-
-  private readonly platformId = inject(PLATFORM_ID);
-
-  // readonly isConnected = signal(false);
 
   readonly lottieOptions: AnimationOptions = {
     path: '/assets/chat-spin/images/loader.json',
@@ -132,14 +128,13 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
   };
 
   onCloseChat(): void {
-    console.log('close');
     this.chatWebSocketService.close();
   }
 
   onSendMessage(message: string): void {
     console.log('send message', message);
     this.chatWebSocketService.sendMessage({
-      action: 'sendMessage',
+      action: EventAction.SEND_MESSAGE,
       data: {
         message,
       },
@@ -149,9 +144,6 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
   scrollToBottom(): void {
     const scrollContainer = this.scrollContainer();
 
-    console.log({
-      scrollContainer12122121: scrollContainer,
-    });
     if (!scrollContainer) {
       return;
     }
@@ -163,7 +155,6 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.log('init');
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
@@ -176,7 +167,6 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    console.log('destroy');
     this.chatWebSocketService.close();
   }
 }

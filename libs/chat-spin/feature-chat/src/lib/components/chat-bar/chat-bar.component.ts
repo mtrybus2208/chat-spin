@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  output,
-  Output,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatInputComponent } from '../chat-input/chat-input.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
@@ -30,11 +23,7 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
     `,
   ],
 })
-export class ChatBarComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-
+export class ChatBarComponent {
   readonly closeChat = output<void>();
   readonly sendMessage = output<string>();
 

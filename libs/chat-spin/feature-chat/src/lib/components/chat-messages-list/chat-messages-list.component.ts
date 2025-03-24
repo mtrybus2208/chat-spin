@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  input,
-  viewChild,
-  AfterViewInit,
-} from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ChatMessage } from '../../types';
