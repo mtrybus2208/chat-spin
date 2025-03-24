@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'lib-mobile-menu',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './mobile-menu.component.html',
 })

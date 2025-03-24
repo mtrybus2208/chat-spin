@@ -11,7 +11,6 @@ import { ChatMessage } from '../../types';
 
 @Component({
   selector: 'lib-chat-messages-list',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './chat-messages-list.component.html',
 })

@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'lib-chat-input',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './chat-input.component.html',
   styleUrl: './chat-input.component.scss',

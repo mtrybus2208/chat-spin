@@ -8,7 +8,6 @@ import { LottieComponent, AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'lib-base-layout',
-  standalone: true,
   imports: [
     CommonModule,
     MatTabsModule,

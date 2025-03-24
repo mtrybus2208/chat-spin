@@ -18,7 +18,6 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { AbstractValueAccessor } from '../classes/value-accessor.abstract';
 @Component({
   selector: 'lib-custom-select',
-  standalone: true,
   imports: [
     CommonModule,
     CustomSelectTriggerForDirective,

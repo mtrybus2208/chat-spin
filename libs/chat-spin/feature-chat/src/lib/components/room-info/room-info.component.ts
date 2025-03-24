@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'lib-room-info',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './room-info.component.html',
 })

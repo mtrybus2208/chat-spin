@@ -5,7 +5,6 @@ import { CustomSelect } from '../interfaces';
 
 @Component({
   selector: 'lib-custom-select-list',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './custom-select-list.component.html',
 })

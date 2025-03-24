@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'lib-feature-information',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './feature-information.component.html',
   styleUrl: './feature-information.component.scss',

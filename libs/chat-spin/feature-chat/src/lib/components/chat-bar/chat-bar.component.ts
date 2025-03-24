@@ -14,7 +14,6 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-chat-bar',
-  standalone: true,
   imports: [
     CommonModule,
     ChatInputComponent,

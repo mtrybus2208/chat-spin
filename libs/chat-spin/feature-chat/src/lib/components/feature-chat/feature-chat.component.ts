@@ -31,7 +31,6 @@ import {
 import { filter } from 'rxjs';
 @Component({
   selector: 'lib-feature-chat',
-  standalone: true,
   imports: [
     CommonModule,
     RoomInfoComponent,

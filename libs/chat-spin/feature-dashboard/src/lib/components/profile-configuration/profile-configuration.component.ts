@@ -34,7 +34,6 @@ export interface IProfileConfigFormGroup {
 
 @Component({
   selector: 'lib-profile-configuration',
-  standalone: true,
   imports: [
     CommonModule,
     MatInputModule,

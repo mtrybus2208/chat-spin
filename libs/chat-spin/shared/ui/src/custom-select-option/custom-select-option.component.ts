@@ -13,7 +13,6 @@ import { Option } from '../interfaces';
 
 @Component({
   selector: 'lib-custom-select-option',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './custom-select-option.component.html',
   host: {

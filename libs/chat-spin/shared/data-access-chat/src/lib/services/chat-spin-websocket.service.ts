@@ -19,16 +19,9 @@ export class ChatWebSocketService implements OnDestroy {
 
   private socket$: WebSocketSubject<SocketMessage> | undefined;
 
-  /**
-   * Stream informing about the connection status.
-   * We can emit `true` (connected), `false` (disconnected).
-   */
   private connectionStatusSubject = new BehaviorSubject<boolean>(false);
   public connectionStatus$ = this.connectionStatusSubject.asObservable();
 
-  /**
-   * Stream for incoming messages from WebSocket.
-   */
   private messagesSubject = new Subject<any>();
   public messages$ = this.messagesSubject.asObservable();
 
@@ -66,7 +59,6 @@ export class ChatWebSocketService implements OnDestroy {
         catchError((error: any) => {
           console.error('WebSocket error: ', error);
           this.connectionStatusSubject.next(false);
-          // You can also initiate e.g. reconnect, here is a simple error return
           return of(null);
         })
       )
@@ -75,7 +67,6 @@ export class ChatWebSocketService implements OnDestroy {
         this.messagesSubject.next(message);
       });
 
-    // Zakładamy, że skoro subskrypcja się udała, to jesteśmy połączeni
     this.connectionStatusSubject.next(true);
   }
 

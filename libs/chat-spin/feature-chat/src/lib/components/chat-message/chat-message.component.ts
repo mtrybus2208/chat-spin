@@ -5,7 +5,6 @@ import { ChatMessage } from '../../types';
 
 @Component({
   selector: 'lib-chat-message',
-  standalone: true,
   imports: [CommonModule, DatePipe],
   templateUrl: './chat-message.component.html',
 })

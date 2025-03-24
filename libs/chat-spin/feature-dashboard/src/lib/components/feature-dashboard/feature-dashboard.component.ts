@@ -7,7 +7,6 @@ import { ProfileConfigurationComponent } from '../profile-configuration/profile-
 
 @Component({
   selector: 'lib-feature-dashboard',
-  standalone: true,
   imports: [
     CommonModule,
     FormsModule,

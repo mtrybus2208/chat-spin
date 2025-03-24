@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'lib-desktop-menu',
-  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './desktop-menu.component.html',
 })
