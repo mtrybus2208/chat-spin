@@ -1,6 +1,10 @@
 import { EventAction } from '../enums';
 
-export type SocketMessage = {
+export type SocketMessage<T = Record<string, string>> = {
   action: EventAction;
-  data: unknown;
+  data?: T;
+};
+
+export type ConnectionData = {
+  connectionId: string;
 };

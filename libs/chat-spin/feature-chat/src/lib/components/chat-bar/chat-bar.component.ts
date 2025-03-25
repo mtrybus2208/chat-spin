@@ -1,19 +1,13 @@
 import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChatInputComponent } from '../chat-input/chat-input.component';
+
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'lib-chat-bar',
-  imports: [
-    CommonModule,
-    ChatInputComponent,
-    TextFieldModule,
-    MatIconModule,
-    ReactiveFormsModule,
-  ],
+  imports: [CommonModule, TextFieldModule, MatIconModule, ReactiveFormsModule],
   templateUrl: './chat-bar.component.html',
   styles: [
     `
@@ -39,6 +33,7 @@ export class ChatBarComponent {
 
   onSendMessage(): void {
     const { message } = this.form.getRawValue();
+
     if (!message) {
       return;
     }

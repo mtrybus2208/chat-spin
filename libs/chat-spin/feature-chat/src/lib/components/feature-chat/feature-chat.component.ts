@@ -11,6 +11,7 @@ import {
   viewChild,
   ElementRef,
   AfterViewInit,
+  DestroyRef,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
@@ -26,9 +27,9 @@ import {
   AvatarPlaceholderComponent,
   SharedAvatarPlaceholderService,
 } from '@mtrybus/ui';
-import { EventAction } from '@mtrybus/util-types';
+import { EventAction, SocketMessage } from '@mtrybus/util-types';
+import { Router } from '@angular/router';
 
-import { filter } from 'rxjs';
 @Component({
   selector: 'lib-feature-chat',
   imports: [
@@ -43,80 +44,75 @@ import { filter } from 'rxjs';
   templateUrl: './feature-chat.component.html',
   providers: [SharedAvatarPlaceholderService],
 })
-export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
+export class FeatureChatComponent implements OnInit, AfterViewInit {
+  private destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
   private readonly chatWebSocketService = inject(ChatWebSocketService);
   private readonly sharedAvatarPlaceholderService = inject(
     SharedAvatarPlaceholderService
   );
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly scrollContainer = viewChild<ElementRef>('scrollContainer');
 
   readonly avatarNames =
     this.sharedAvatarPlaceholderService.getUniqueAvatarNamesPair();
 
-  readonly isConnected = toSignal(
-    this.chatWebSocketService.messages$.pipe(
-      filter((message: any) => message?.action === 'connected')
-    ),
-    {
-      initialValue: false,
-    }
+  readonly isConnected = toSignal<SocketMessage>(
+    this.chatWebSocketService.isConnected$
   );
-  readonly connectionId = computed(() => {
-    return this.isConnected()?.data?.connectionId;
-  });
 
-  private readonly scrollContainer = viewChild<ElementRef>('scrollContainer');
-
+  readonly connectionId = computed(
+    () => this.isConnected()?.data?.connectionId
+  );
   readonly sendMessageEvent = toSignal(
-    this.chatWebSocketService.messages$.pipe(
-      filter((message: any) => message?.action === 'sendMessage')
-    ),
-    {
-      initialValue: false,
-    }
+    this.chatWebSocketService.sendMessageEvent$
   );
-
   readonly connectionStatus = toSignal(
     this.chatWebSocketService.connectionStatus$
   );
+  readonly disconnectEvent = toSignal(
+    this.chatWebSocketService.disconnectEvent$
+  );
+
+  readonly disconnectEffect = effect(() => {
+    const disconnectEvent = this.disconnectEvent();
+
+    if (!disconnectEvent) {
+      return;
+    }
+
+    this.router.navigate(['/']);
+  });
 
   readonly connectionStatusEffect = effect(() => {
     const connectionStatus = this.connectionStatus();
-    console.log({
-      connectionStatus,
-    });
+
     if (!connectionStatus) {
       return;
     }
   });
+  readonly conversationEffect = effect(() => {
+    const sendMessageEvent = this.sendMessageEvent();
+    if (!sendMessageEvent) {
+      return;
+    }
+
+    untracked(() => {
+      const isHost = sendMessageEvent.data?.from === sendMessageEvent.data?.to;
+      const name = isHost ? 'You' : 'Stranger';
+
+      const chatMessage: ChatMessage = {
+        text: sendMessageEvent.data?.message ?? '',
+        createdAt: Date.now(),
+        isHost,
+        user: { id: 1, name },
+      };
+
+      this.messagesArray.update((prev) => [...prev, chatMessage]);
+    });
+  });
 
   readonly messagesArray = signal<ChatMessage[]>([]);
-
-  readonly conversationEffect = effect(
-    () => {
-      const sendMessageEvent = this.sendMessageEvent();
-      if (!sendMessageEvent) {
-        return;
-      }
-
-      untracked(() => {
-        const isHost = sendMessageEvent.data.from === sendMessageEvent.data.to;
-        const name = isHost ? 'You' : 'Stranger';
-
-        const chatMessage: ChatMessage = {
-          text: sendMessageEvent.data.message,
-          createdAt: Date.now(),
-          isHost,
-          user: { id: 1, name },
-        };
-
-        this.messagesArray.update((prev) => [...prev, chatMessage]);
-      });
-    },
-    {
-      allowSignalWrites: true,
-    }
-  );
 
   readonly scrollToBottomEffect = effect(() => {
     this.scrollToBottom();
@@ -127,12 +123,18 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
     loop: true,
   };
 
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      this.chatWebSocketService.close();
+    });
+  }
+
   onCloseChat(): void {
     this.chatWebSocketService.close();
+    this.router.navigate(['/']);
   }
 
   onSendMessage(message: string): void {
-    console.log('send message', message);
     this.chatWebSocketService.sendMessage({
       action: EventAction.SEND_MESSAGE,
       data: {
@@ -164,9 +166,5 @@ export class FeatureChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.scrollToBottom();
-  }
-
-  ngOnDestroy(): void {
-    this.chatWebSocketService.close();
   }
 }

@@ -1,6 +1,7 @@
 <form
   class="flex flex-col items-center bg-base-300 border-t border-zinc-700 px-5 py-3 overflow-x-hidden"
   (ngSubmit)="onSendMessage()"
+  (keyup.enter)="onSendMessage()"
   [formGroup]="form"
 >
   <div class="w-full">

@@ -1,28 +1,21 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
   OnInit,
-  AfterViewInit,
   PLATFORM_ID,
-  OnDestroy,
 } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {
-  CustomSelectComponent,
-  CustomSelectTriggerForDirective,
-  Option,
-} from '@mtrybus/ui';
+import { Option } from '@mtrybus/ui';
 import {
   FormBuilder,
   FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AnimationItem } from 'lottie-web';
+
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
 import { ChatWebSocketService } from '@mtrybus/data-access-chat';
 import { Router } from '@angular/router';
@@ -38,16 +31,14 @@ export interface IProfileConfigFormGroup {
     CommonModule,
     MatInputModule,
     MatFormFieldModule,
-    CustomSelectComponent,
     ReactiveFormsModule,
-    CustomSelectTriggerForDirective,
     LottieComponent,
   ],
   templateUrl: './profile-configuration.component.html',
   styleUrl: './profile-configuration.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileConfigurationComponent implements OnInit {
+export class ProfileConfigurationComponent {
   public readonly options: Option[] = [
     {
       label: 'Male',
@@ -81,21 +72,11 @@ export class ProfileConfigurationComponent implements OnInit {
     }),
   });
 
-  ngOnInit(): void {
-    this.form.valueChanges.subscribe((value) => {
-      console.log('zmiana wartosci');
-      console.log({
-        ZMIANA22222: value,
-        value,
-      });
-    });
-  }
-
-  connectHandler() {
+  connectHandler(): void {
     this.router.navigate(['/chat']);
   }
 
-  getResult() {
+  getResult(): void {
     const formValue = this.form.value;
 
     this.result = `gender is: ${formValue.gender}`;

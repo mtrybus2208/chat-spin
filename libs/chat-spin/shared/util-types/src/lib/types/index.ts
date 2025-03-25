@@ -1,1 +1,1 @@
-export { type SocketMessage } from './socket-message.type';
+export { type SocketMessage, type ConnectionData } from './socket-message.type';
