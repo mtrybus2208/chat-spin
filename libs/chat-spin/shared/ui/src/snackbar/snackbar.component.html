@@ -1,0 +1,8 @@
+<div class="toast toast-top toast-end">
+  <div role="alert" class="alert" [class]="data.type | typeClass">
+    <span>{{ data.message }}</span>
+    <span class="material-icons mr-2 cursor-pointer" (click)="onClose()"
+      >close</span
+    >
+  </div>
+</div>

@@ -1,34 +1,41 @@
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
+  computed,
+  DestroyRef,
   effect,
+  ElementRef,
   inject,
   OnInit,
-  signal,
-  OnDestroy,
   PLATFORM_ID,
-  computed,
+  signal,
   untracked,
   viewChild,
-  ElementRef,
-  AfterViewInit,
-  DestroyRef,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-
-import { RoomInfoComponent } from '../room-info/room-info.component';
-import { ChatMessagesListComponent } from '../chat-messages-list/chat-messages-list.component';
-import { ChatMessage } from '../../types';
-import { ChatMessageComponent } from '../chat-message/chat-message.component';
-import { ChatBarComponent } from '../chat-bar/chat-bar.component';
-import { ChatWebSocketService } from '@mtrybus/data-access-chat';
-import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { ChatWebSocketService } from '@mtrybus/data-access-chat';
 import {
   AvatarPlaceholderComponent,
   SharedAvatarPlaceholderService,
+  SnackbarService,
 } from '@mtrybus/ui';
 import { EventAction, SocketMessage } from '@mtrybus/util-types';
-import { Router } from '@angular/router';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
+
+import { ChatMessage } from '../../types';
+import { ChatBarComponent } from '../chat-bar/chat-bar.component';
+import { ChatMessageComponent } from '../chat-message/chat-message.component';
+import { ChatMessagesListComponent } from '../chat-messages-list/chat-messages-list.component';
+import { RoomInfoComponent } from '../room-info/room-info.component';
+
+// tutaj
 
 @Component({
   selector: 'lib-feature-chat',
@@ -42,7 +49,7 @@ import { Router } from '@angular/router';
     AvatarPlaceholderComponent,
   ],
   templateUrl: './feature-chat.component.html',
-  providers: [SharedAvatarPlaceholderService],
+  providers: [SharedAvatarPlaceholderService, MatSnackBar, SnackbarService],
 })
 export class FeatureChatComponent implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
@@ -51,8 +58,12 @@ export class FeatureChatComponent implements OnInit, AfterViewInit {
   private readonly sharedAvatarPlaceholderService = inject(
     SharedAvatarPlaceholderService
   );
+  private readonly snackbarStateService = inject(SnackbarService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly scrollContainer = viewChild<ElementRef>('scrollContainer');
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   readonly avatarNames =
     this.sharedAvatarPlaceholderService.getUniqueAvatarNamesPair();
@@ -80,6 +91,11 @@ export class FeatureChatComponent implements OnInit, AfterViewInit {
     if (!disconnectEvent) {
       return;
     }
+
+    this.snackbarStateService.openSnackbar({
+      message: 'Hello asd sa dasd ',
+      type: 'success',
+    });
 
     this.router.navigate(['/']);
   });

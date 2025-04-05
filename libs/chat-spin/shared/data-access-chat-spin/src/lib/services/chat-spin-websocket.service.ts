@@ -1,8 +1,5 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { WebSocketMessage } from '../models/chat-message.types';
-import { catchError, of, tap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +19,11 @@ export class ChatWebSocketService {
     }
   }
 
-  sendMessage(msg: any) {
+  sendMessage(msg: any): void {
     this.socket$?.next(msg);
   }
 
-  close() {
+  close(): void {
     this.socket$?.complete();
   }
 }

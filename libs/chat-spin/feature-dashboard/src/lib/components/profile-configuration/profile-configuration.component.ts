@@ -1,24 +1,17 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { Option } from '@mtrybus/ui';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { Option } from '@mtrybus/ui';
 
-import { LottieComponent, AnimationOptions } from 'ngx-lottie';
-import { ChatWebSocketService } from '@mtrybus/data-access-chat';
 import { Router } from '@angular/router';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 
 export interface IProfileConfigFormGroup {
   gender?: FormControl<Option | null>;
@@ -59,8 +52,6 @@ export class ProfileConfigurationComponent {
     loop: true,
   };
 
-  private readonly chatWebSocketService = inject(ChatWebSocketService);
-  private readonly platformId = inject(PLATFORM_ID);
   private readonly router = inject(Router);
 
   readonly form = inject(FormBuilder).group<IProfileConfigFormGroup>({

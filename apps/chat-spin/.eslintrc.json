@@ -8,6 +8,7 @@
         "plugin:@nx/angular",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
+      "plugins": ["import"],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
@@ -25,7 +26,45 @@
             "style": "kebab-case"
           }
         ],
-        "@angular-eslint/prefer-standalone": "off"
+        "@angular-eslint/prefer-standalone": "off",
+        "import/order": [
+          "error",
+          {
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            },
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              "parent",
+              "sibling",
+              "object",
+              "type",
+              "index"
+            ],
+            "newlines-between": "always",
+            "pathGroups": [
+              {
+                "pattern": "@angular/**",
+                "group": "external",
+                "position": "before"
+              },
+              {
+                "pattern": "@mtrybus/**",
+                "group": "internal",
+                "position": "before"
+              },
+              {
+                "pattern": "./**",
+                "group": "sibling",
+                "position": "after"
+              }
+            ],
+            "pathGroupsExcludedImportTypes": ["@angular/**"]
+          }
+        ]
       }
     },
     {

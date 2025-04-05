@@ -5,3 +5,4 @@ export * from './custom-select/custom-select-trigger-for.directive';
 export * from './interfaces';
 export * from './classes';
 export * from './avatar-placeholder';
+export * from './snackbar';
