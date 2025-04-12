@@ -79,7 +79,10 @@
       "unitTestRunner": "jest"
     },
     "@nx/angular:component": {
-      "style": "scss"
+      "style": "none",
+      "changeDetection": "OnPush",
+      "skipTests": true,
+      "export": false
     }
   },
   "useLegacyCache": true

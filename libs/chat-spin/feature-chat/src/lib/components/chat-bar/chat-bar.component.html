@@ -4,10 +4,20 @@
   (keyup.enter)="onSendMessage()"
   [formGroup]="form"
 >
-  <div class="w-full">
+  @if(!!uploadedFiles().length) {
+  <div class="w-full flex flex-wrap gap-4 py-4">
+    @for(attachment of fileAttachments(); track attachment.id) {
+    <lib-chat-image-thumbnail
+      [attachment]="attachment"
+      (removeAttachment)="onRemoveAttachment(attachment.id)"
+    ></lib-chat-image-thumbnail>
+    }
+  </div>
+  }
+  <div class="w-full py-4">
     <textarea
       formControlName="message"
-      class="textarea textarea-ghost textarea-xs w-full focus:bg-transparent focus:border-none focus:outline-none text-base px-4"
+      class="textarea textarea-ghost textarea-xs w-full focus:bg-transparent focus:border-none focus:outline-none text-base px-0 py-4"
       cdkTextareaAutosize
       cdkAutosizeMinRows="1"
       cdkAutosizeMaxRows="5"
@@ -26,14 +36,14 @@
       </div>
     </div>
     <div class="flex flex-1 items-center justify-end gap-4">
-      <div class="tooltip" data-tip="Attach images (max 5, 10MB)">
-        <button class="btn btn-md btn-square">
+      <div class="tooltip" data-tip="Attach image (max 10MB)">
+        <lib-file-upload-button (fileChange)="onFileChange($event)">
           <mat-icon
             aria-hidden="false"
-            aria-label="Attach images (max 5, 10MB each)"
+            aria-label="Attach images (max 10MB)"
             fontIcon="attach_file"
           ></mat-icon>
-        </button>
+        </lib-file-upload-button>
       </div>
       <div class="tooltip">
         <button

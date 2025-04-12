@@ -1,0 +1,11 @@
+<input
+  #fileInput
+  type="file"
+  (change)="onFileChange($event)"
+  hidden
+  [accept]="allowedFileExtensionsString()"
+  [multiple]="multiple()"
+/>
+<button class="btn btn-md btn-square" (click)="fileInput.click()" type="button">
+  <ng-content></ng-content>
+</button>

@@ -1,0 +1,12 @@
+@if(attachment(); as attachment) {
+<div class="w-40 h-40 bg-base-200 rounded-lg overflow-hidden relative">
+  <img [src]="attachment.url" alt="File" class="w-full h-full object-cover" />
+  <button
+    class="btn btn-circle absolute top-1 right-1 btn-sm"
+    (click)="onRemoveFile()"
+    type="button"
+  >
+    <mat-icon fontIcon="close"></mat-icon>
+  </button>
+</div>
+}
