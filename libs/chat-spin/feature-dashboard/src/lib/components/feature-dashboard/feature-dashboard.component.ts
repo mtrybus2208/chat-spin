@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { APP_CONFIG } from '@mtrybus/util-config';
 
 import { ProfileConfigurationComponent } from '../profile-configuration/profile-configuration.component';
 
@@ -11,4 +11,6 @@ import { ProfileConfigurationComponent } from '../profile-configuration/profile-
   templateUrl: './feature-dashboard.component.html',
   styleUrl: './feature-dashboard.component.scss',
 })
-export class FeatureDashboardComponent {}
+export class FeatureDashboardComponent {
+  appConfig = inject(APP_CONFIG);
+}

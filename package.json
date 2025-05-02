@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start-chat-spin": "npx nx serve chat-spin"
+    "start-chat-spin": "npx nx serve chat-spin",
+    "start-chat-spin-prod": "npx nx serve chat-spin --configuration=production"
   },
   "private": true,
   "dependencies": {

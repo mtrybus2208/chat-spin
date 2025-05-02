@@ -1,10 +1,16 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { appRoutes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideLottieOptions } from 'ngx-lottie';
+import { provideRouter } from '@angular/router';
+
 import player from 'lottie-web';
+import { provideLottieOptions } from 'ngx-lottie';
+
+import { APP_CONFIG } from '@mtrybus/util-config';
+
+import { environment } from '../environments/environment';
+
+import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,5 +21,9 @@ export const appConfig: ApplicationConfig = {
     provideLottieOptions({
       player: () => player,
     }),
+    {
+      provide: APP_CONFIG,
+      useValue: environment,
+    },
   ],
 };

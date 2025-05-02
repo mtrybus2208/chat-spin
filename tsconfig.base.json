@@ -30,6 +30,9 @@
         "libs/chat-spin/feature-information/src/index.ts"
       ],
       "@mtrybus/ui": ["libs/chat-spin/shared/ui/src/index.ts"],
+      "@mtrybus/util-config": [
+        "libs/chat-spin/shared/util-config/src/index.ts"
+      ],
       "@mtrybus/util-directives": ["libs/shared/util-directives/src/index.ts"],
       "@mtrybus/util-types": ["libs/chat-spin/shared/util-types/src/index.ts"]
     }
