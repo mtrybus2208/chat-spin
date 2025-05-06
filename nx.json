@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "useNxCloud": false,
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
@@ -17,7 +18,6 @@
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
-  "nxCloudAccessToken": "OTU5YTM2NzMtZjhhNC00Nzk5LTk4MjUtY2QzMmUzMjc4MWFlfHJlYWQtd3JpdGU=",
   "targetDefaults": {
     "@angular-devkit/build-angular:application": {
       "cache": true,

@@ -1,0 +1,36 @@
+name: Deploy App to S3
+
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_NAME: Chat spin
+      DIST_DIR: dist/apps/chat-spin/browser
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build-chat-spin
+
+      - name: Deploy to S3
+        if: success()
+        run: aws s3 cp $DIST_DIR s3://$AWS_S3_BUCKET/ --recursive --cache-control "public,max-age=31536000,immutable"
