@@ -1,5 +1,6 @@
 export type FileAttachment = {
   file: File;
-  id?: string;
+  id: string;
   url?: string;
+  isUploading?: boolean;
 };

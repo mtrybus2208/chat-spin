@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject, output } from '@angular/core';
 
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { FileUploadButtonComponent } from '@mtrybus/ui';
@@ -40,24 +41,33 @@ export class ChatBarComponent {
 
   readonly uploadedFiles = this.chatUploadedFilesService.uploadedFiles;
 
+  readonly uploadedFiles$ = toObservable(this.uploadedFiles);
+
   readonly fileAttachments = computed(() => {
-    return this.uploadedFiles().map(({ file, id }) => ({
+    return this.uploadedFiles().map(({ file, id, ...rest }) => ({
       file,
       id: id ?? uuidv4(),
       url: URL.createObjectURL(file),
+      ...rest,
     }));
   });
+
+  readonly isImagesUploading = computed(() =>
+    this.uploadedFiles().some(({ isUploading }) => isUploading)
+  );
 
   onCloseChat(): void {
     this.closeChat.emit();
   }
 
   onFileChange(files: File[]): void {
-    const attachments = files.map((file) => ({
-      file,
-      id: uuidv4(),
-    }));
-    this.chatUploadedFilesService.addFiles(attachments);
+    Array.from(files).forEach((file) => {
+      const attachment = {
+        file,
+        id: uuidv4(),
+      };
+      this.chatUploadedFilesService.enqueueFiles(attachment);
+    });
   }
 
   onSendMessage(): void {

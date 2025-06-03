@@ -34,6 +34,9 @@
         "libs/chat-spin/shared/util-config/src/index.ts"
       ],
       "@mtrybus/util-directives": ["libs/shared/util-directives/src/index.ts"],
+      "@mtrybus/util-http-requests": [
+        "libs/chat-spin/shared/util-http-requests/src/index.ts"
+      ],
       "@mtrybus/util-types": ["libs/chat-spin/shared/util-types/src/index.ts"]
     }
   },

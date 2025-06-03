@@ -1,12 +1,20 @@
 @if(attachment(); as attachment) {
 <div class="w-20 h-20 bg-base-200 rounded-lg overflow-hidden relative">
   <img [src]="attachment.url" alt="File" class="w-full h-full object-cover" />
+  @if(attachment.isUploading) {
+  <div
+    class="absolute inset-0 bg-gray-500 opacity-70 z-1 pointer-events-none"
+  ></div>
+  <span
+    class="loading loading-ring loading-s absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-2"
+  ></span>
+  }
   <button
-    class="btn btn-circle absolute top-1 right-1 btn-sm"
+    class="btn btn-circle absolute top-1 right-1 btn-xs cursor-pointer z-2"
     (click)="onRemoveFile()"
     type="button"
   >
-    <mat-icon fontIcon="close"></mat-icon>
+    <mat-icon fontIcon="close" class="scale-[0.7]"></mat-icon>
   </button>
 </div>
 }

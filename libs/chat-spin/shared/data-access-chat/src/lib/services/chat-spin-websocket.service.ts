@@ -1,8 +1,8 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { BehaviorSubject, Subject, of, catchError, filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EventAction, SocketMessage } from '@mtrybus/util-types';
+import { BehaviorSubject, catchError, filter, of, Subject } from 'rxjs';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
 const WS_ENDPOINT = 'wss://n6cp5yn4nl.execute-api.us-east-2.amazonaws.com/dev/';
 
