@@ -1,9 +1,9 @@
-@use '@angular/material' as mat;
-@use './styles/material-css-variables' as *;
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+// @use '@angular/material' as mat;
+// @use './styles/material-css-variables' as *;
 
 @layer utilities {
   .app-loader-filter {
@@ -14,25 +14,25 @@
   }
 }
 
-@include mat.elevation-classes();
-@include mat.app-background();
+// @include mat.elevation-classes();
+// @include mat.app-background();
 
-$chat-spin-theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    density: (
-      scale: 0,
-    ),
-  )
-);
+// $chat-spin-theme: mat.define-theme(
+//   (
+//     color: (
+//       theme-type: light,
+//       primary: mat.$azure-palette,
+//       tertiary: mat.$blue-palette,
+//     ),
+//     density: (
+//       scale: 0,
+//     ),
+//   )
+// );
 
-:root {
-  @include mat.all-component-themes($chat-spin-theme);
-}
+// :root {
+//   @include mat.all-component-themes($chat-spin-theme);
+// }
 
 html,
 body {

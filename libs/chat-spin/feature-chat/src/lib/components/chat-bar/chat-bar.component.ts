@@ -5,9 +5,9 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { AttachmentsQueueService } from '@mtrybus/feature-attachments';
 import { FileUploadButtonComponent } from '@mtrybus/ui';
 import { v4 as uuidv4 } from 'uuid';
-import { ChatUploadedFilesService } from '../../services';
 import { ChatImageThumbnailComponent } from '../chat-image-thumbnail/chat-image-thumbnail.component';
 
 @Component({
@@ -33,13 +33,13 @@ export class ChatBarComponent {
   readonly closeChat = output<void>();
   readonly sendMessage = output<string>();
   private readonly formBuilder = inject(FormBuilder);
-  private readonly chatUploadedFilesService = inject(ChatUploadedFilesService);
+  private readonly attachmentsQueueService = inject(AttachmentsQueueService);
 
   readonly form = this.formBuilder.group({
     message: ['', Validators.required],
   });
 
-  readonly uploadedFiles = this.chatUploadedFilesService.uploadedFiles;
+  readonly uploadedFiles = this.attachmentsQueueService.uploadedFiles;
 
   readonly uploadedFiles$ = toObservable(this.uploadedFiles);
 
@@ -66,7 +66,7 @@ export class ChatBarComponent {
         file,
         id: uuidv4(),
       };
-      this.chatUploadedFilesService.enqueueFiles(attachment);
+      this.attachmentsQueueService.enqueueFiles(attachment);
     });
   }
 
@@ -82,6 +82,6 @@ export class ChatBarComponent {
   }
 
   onRemoveAttachment(attachmentId: string): void {
-    this.chatUploadedFilesService.removeFile(attachmentId);
+    this.attachmentsQueueService.removeFile(attachmentId);
   }
 }

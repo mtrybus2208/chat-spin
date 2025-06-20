@@ -4,12 +4,12 @@ import { SnackbarService } from '@mtrybus/ui';
 import { FileAttachment } from '@mtrybus/util-types';
 import { combineLatest, of, Subject, switchMap, tap } from 'rxjs';
 
-import { DataAccessAttachmentService } from './data-access-attachment.service';
+import { DataAccessAttachmentService } from './attachments-data-access.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ChatUploadedFilesService {
+export class AttachmentsQueueService {
   readonly uploadedFiles = signal<FileAttachment[]>([]);
   readonly dataAccessAttachmentService = inject(DataAccessAttachmentService);
   private readonly snackbarStateService = inject(SnackbarService);
@@ -91,10 +91,3 @@ export class ChatUploadedFilesService {
     this.uploadedFiles.update((prev) => prev.filter(({ id }) => id !== fileId));
   }
 }
-
-/**
- 1 pokaz zdjecie i zablokuj wysylanie wiadmosci do czasu az nie przesle zdjecia
- 2. wyslij request po presigned irl nasteonie wyslij od razu zdjecie w body zbey zapisac jak dostane jakas zwrotek wylacz loader i odblokuj wysylanie wiadmosci
- * 
- * dodanie file do arejki => (validacja) =>  getpresigned => PUT z presigned 
- */
