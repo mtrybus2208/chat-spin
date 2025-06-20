@@ -34,3 +34,6 @@ jobs:
       - name: Deploy to S3
         if: success()
         run: aws s3 cp $DIST_DIR s3://$AWS_S3_BUCKET/ --recursive --cache-control "public,max-age=31536000,immutable"
+
+      - name: 🔄 Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --paths "/*"
