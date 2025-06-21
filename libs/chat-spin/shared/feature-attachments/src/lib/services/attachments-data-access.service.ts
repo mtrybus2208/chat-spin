@@ -15,7 +15,7 @@ export class DataAccessAttachmentService {
   getPresignedUrl$(attachment: FileAttachment): Observable<{ url: string }> {
     return this.httpClient
       .post<{ url: string }>(
-        `${this.appConfig.chatSpinApiUrl}/photos`,
+        `${this.appConfig.chatSpinFilesApiUrl}/photos`,
         {
           filename: attachment.file.name,
         },
