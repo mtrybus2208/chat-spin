@@ -73,9 +73,13 @@ export class ChatBarComponent {
         file,
         id: uuidv4(),
       };
-      if (!this.attachmentsValidationService.validateFile(attachment)) {
+      const { isValid, message } =
+        this.attachmentsValidationService.validateFile(attachment);
+      console.log({ VALIDATION_RESULT: { isValid, message } });
+
+      if (!isValid) {
         this.snackbarStateService.openSnackbar({
-          message: 'File size is too large',
+          message: message ?? 'File size is too large',
           type: 'error',
         });
         return;
@@ -90,12 +94,6 @@ export class ChatBarComponent {
     if (!message) {
       return;
     }
-    console.log({
-      COLECITON: {
-        message,
-        attachments: this.attachmentsToSend(),
-      },
-    });
 
     this.sendMessage.emit({
       message,
