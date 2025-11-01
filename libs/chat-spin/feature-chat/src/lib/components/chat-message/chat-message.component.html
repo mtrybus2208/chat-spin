@@ -1,19 +1,15 @@
-@let user = message().user;
-
 <div
-  class="chat chat-start"
-  [ngClass]="{
-   'chat-end': message().isHost,
-}"
+  class="chat-message chat chat-start"
+  [class.chat-message--host]="message().isHost"
 >
-  <div class="chat-image avatar">
+  <div class="chat-message__image chat-image avatar">
     <div class="w-10 rounded-full">
       <ng-content select="[avatar]"></ng-content>
     </div>
   </div>
-  <div class="chat-header">
-    {{ user.name }}
-    <time class="text-xs opacity-50">{{
+  <div class="chat-message__header">
+    <span class="chat-message__header-name">{{ user().name }}</span>
+    <time class="chat-message__header-time">{{
       message().createdAt | date : 'HH:mm'
     }}</time>
   </div>

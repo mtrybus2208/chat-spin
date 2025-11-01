@@ -1,0 +1,134 @@
+// Design System typography tokens
+// Organized by weight: Regular (400) and Bold (500–600)
+
+:root {
+  /* --------------------- */
+  /* Font families         */
+  /* --------------------- */
+  --ds-font-family: Roboto, 'Helvetica Neue', sans-serif;
+  --ds-font-family-heading: 'Roboto Condensed', 'Helvetica Neue', sans-serif;
+  --ds-font-family-mono: 'Roboto Mono', monospace;
+
+  /* --------------------- */
+  /* DISPLAY               */
+  /* --------------------- */
+  /* Regular */
+  --ds-font-display-regular-xl: 400 48px/56px var(--ds-font-family-heading);
+  --ds-font-display-regular-lg: 400 40px/48px var(--ds-font-family-heading);
+  --ds-font-display-regular-md: 400 32px/40px var(--ds-font-family-heading);
+
+  /* Bold */
+  --ds-font-display-bold-xl: 600 48px/56px var(--ds-font-family-heading);
+  --ds-font-display-bold-lg: 600 40px/48px var(--ds-font-family-heading);
+  --ds-font-display-bold-md: 600 32px/40px var(--ds-font-family-heading);
+
+  /* --------------------- */
+  /* HEADLINE              */
+  /* --------------------- */
+  /* Regular */
+  --ds-font-headline-regular-xl: 400 28px/36px var(--ds-font-family);
+  --ds-font-headline-regular-lg: 400 24px/32px var(--ds-font-family);
+  --ds-font-headline-regular-md: 400 22px/28px var(--ds-font-family);
+  --ds-font-headline-regular-sm: 400 20px/26px var(--ds-font-family);
+
+  /* Bold */
+  --ds-font-headline-bold-xl: 600 28px/36px var(--ds-font-family);
+  --ds-font-headline-bold-lg: 600 24px/32px var(--ds-font-family);
+  --ds-font-headline-bold-md: 500 22px/28px var(--ds-font-family);
+  --ds-font-headline-bold-sm: 500 20px/26px var(--ds-font-family);
+
+  /* --------------------- */
+  /* TITLE                 */
+  /* --------------------- */
+  /* Regular */
+  --ds-font-title-regular-lg: 400 18px/24px var(--ds-font-family);
+  --ds-font-title-regular-md: 400 16px/22px var(--ds-font-family);
+  --ds-font-title-regular-sm: 400 14px/20px var(--ds-font-family);
+
+  /* Bold */
+  --ds-font-title-bold-lg: 600 18px/24px var(--ds-font-family);
+  --ds-font-title-bold-md: 500 16px/22px var(--ds-font-family);
+  --ds-font-title-bold-sm: 500 14px/20px var(--ds-font-family);
+
+  /* --------------------- */
+  /* LABEL                 */
+  /* --------------------- */
+  /* Regular */
+  --ds-font-label-regular-lg: 400 16px/20px var(--ds-font-family);
+  --ds-font-label-regular-md: 400 14px/18px var(--ds-font-family);
+  --ds-font-label-regular-sm: 400 12px/16px var(--ds-font-family);
+  --ds-font-label-regular-xs: 400 10px/14px var(--ds-font-family);
+
+  /* Bold */
+  --ds-font-label-bold-lg: 600 16px/20px var(--ds-font-family);
+  --ds-font-label-bold-md: 500 14px/18px var(--ds-font-family);
+  --ds-font-label-bold-sm: 500 12px/16px var(--ds-font-family);
+  --ds-font-label-bold-xs: 500 10px/14px var(--ds-font-family);
+
+  /* --------------------- */
+  /* BODY                  */
+  /* --------------------- */
+  /* Regular */
+  --ds-font-body-regular-lg: 400 18px/26px var(--ds-font-family);
+  --ds-font-body-regular-md: 400 16px/24px var(--ds-font-family);
+  --ds-font-body-regular-sm: 400 14px/20px var(--ds-font-family);
+  --ds-font-body-regular-xs: 400 12px/18px var(--ds-font-family);
+
+  /* Bold */
+  --ds-font-body-bold-lg: 500 18px/26px var(--ds-font-family);
+  --ds-font-body-bold-md: 500 16px/24px var(--ds-font-family);
+  --ds-font-body-bold-sm: 500 14px/20px var(--ds-font-family);
+  --ds-font-body-bold-xs: 500 12px/18px var(--ds-font-family);
+
+  /* --------------------- */
+  /* CAPTION / HELPER TEXT */
+  /* --------------------- */
+  /* Regular */
+  --ds-font-caption-regular-md: 400 12px/16px var(--ds-font-family);
+  --ds-font-caption-regular-sm: 400 10px/14px var(--ds-font-family);
+
+  /* Bold */
+  --ds-font-caption-bold-md: 500 12px/16px var(--ds-font-family);
+  --ds-font-caption-bold-sm: 500 10px/14px var(--ds-font-family);
+
+  /* --------------------- */
+  /* CODE / MONO           */
+  /* --------------------- */
+  /* Regular */
+  --ds-font-code-regular-md: 400 14px/20px var(--ds-font-family-mono);
+  --ds-font-code-regular-sm: 400 12px/18px var(--ds-font-family-mono);
+
+  /* Bold */
+  --ds-font-code-bold-md: 500 14px/20px var(--ds-font-family-mono);
+  --ds-font-code-bold-sm: 500 12px/18px var(--ds-font-family-mono);
+
+  /* --------------------- */
+  /* ATOMIC TOKENS         */
+  /* --------------------- */
+  --ds-font-size-xxl: 48px;
+  --ds-font-size-xl: 40px;
+  --ds-font-size-lg: 32px;
+  --ds-font-size-md: 24px;
+  --ds-font-size-sm: 16px;
+  --ds-font-size-xs: 14px;
+  --ds-font-size-2xs: 12px;
+  --ds-font-size-3xs: 10px;
+
+  --ds-line-height-xxl: 56px;
+  --ds-line-height-xl: 48px;
+  --ds-line-height-lg: 40px;
+  --ds-line-height-md: 32px;
+  --ds-line-height-sm: 24px;
+  --ds-line-height-xs: 20px;
+  --ds-line-height-2xs: 16px;
+  --ds-line-height-3xs: 14px;
+
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 500;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold: 700;
+
+  --ds-letter-spacing-tight: -0.02em;
+  --ds-letter-spacing-normal: 0em;
+  --ds-letter-spacing-wide: 0.05em;
+}

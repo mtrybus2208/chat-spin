@@ -1,63 +1,66 @@
-<form
-  class="flex flex-col items-center bg-base-300 border-t border-zinc-700 px-5 py-3 overflow-x-hidden"
-  (ngSubmit)="onSendMessage()"
-  (keyup.enter)="onSendMessage()"
-  [formGroup]="form"
->
-  @if(!!uploadedFiles().length) {
-  <div class="w-full flex flex-wrap gap-4 py-4">
-    @for(attachment of fileAttachments(); track attachment.id) {
-    <lib-chat-image-thumbnail
-      [attachment]="attachment"
-      (removeAttachment)="onRemoveAttachment(attachment.id)"
-    ></lib-chat-image-thumbnail>
+<div class="chat-bar">
+  <form
+    class="flex flex-col items-center px-5 py-3 overflow-x-hidden"
+    (ngSubmit)="onSendMessage()"
+    [formGroup]="form"
+  >
+    @if(!!uploadedFiles().length) {
+    <div class="w-full flex flex-wrap gap-4 py-4">
+      @for(attachment of fileAttachments(); track attachment.id) {
+      <lib-chat-image-thumbnail
+        [attachment]="attachment"
+        (removeAttachment)="onRemoveAttachment(attachment.id)"
+      ></lib-chat-image-thumbnail>
+      }
+    </div>
     }
-  </div>
-  }
-  <div class="w-full py-4">
-    <textarea
-      formControlName="message"
-      class="textarea textarea-ghost textarea-xs w-full focus:bg-transparent focus:border-none focus:outline-none text-[1rem]"
-      cdkTextareaAutosize
-      cdkAutosizeMinRows="1"
-      cdkAutosizeMaxRows="5"
-    ></textarea>
-  </div>
-  <div class="w-full flex">
-    <div class="flex flex-1 items-center justify-start">
-      <div class="tooltip" data-tip="End the chat">
-        <button class="btn btn-square" (click)="onCloseChat()">
-          <mat-icon
-            aria-hidden="false"
-            aria-label="End the chat"
-            fontIcon="close"
-          ></mat-icon>
-        </button>
+    <div class="w-full">
+      <textarea
+        formControlName="message"
+        class="chat-bar__textarea"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        (keydown.enter)="onTextareaEnter($event)"
+        placeholder="Type your message here..."
+      ></textarea>
+    </div>
+    <div class="w-full flex">
+      <div class="flex flex-1 items-center justify-start">
+        <div class="tooltip" data-tip="End the chat">
+          <button class="btn btn-square" (click)="onCloseChat()">
+            <mat-icon
+              aria-hidden="false"
+              aria-label="End the chat"
+              fontIcon="close"
+            ></mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-1 items-center justify-end gap-4">
+        <div class="tooltip" data-tip="Attach image (max 10MB)">
+          <lib-file-upload-button (fileChange)="onFileChange($event)">
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Attach images (max 10MB)"
+              fontIcon="attach_file"
+            ></mat-icon>
+          </lib-file-upload-button>
+        </div>
+        <div class="tooltip">
+          <button
+            class="btn btn-square btn-secondary"
+            [disabled]="isImagesUploading() || form.invalid"
+            type="submit"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Send message"
+              fontIcon="send"
+            ></mat-icon>
+          </button>
+        </div>
       </div>
     </div>
-    <div class="flex flex-1 items-center justify-end gap-4">
-      <div class="tooltip" data-tip="Attach image (max 10MB)">
-        <lib-file-upload-button (fileChange)="onFileChange($event)">
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Attach images (max 10MB)"
-            fontIcon="attach_file"
-          ></mat-icon>
-        </lib-file-upload-button>
-      </div>
-      <div class="tooltip">
-        <button
-          class="btn btn-square btn-secondary"
-          [disabled]="isImagesUploading() || form.invalid"
-          type="submit"
-        >
-          <mat-icon
-            aria-hidden="false"
-            aria-label="Send message"
-            fontIcon="send"
-          ></mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-</form>
+  </form>
+</div>

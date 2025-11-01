@@ -1,9 +1,10 @@
+@use '../../../libs/shared/util-directives/src/styles/global-variables' as *;
+@use '@angular/cdk';
+@include cdk.text-field-autosize;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-// @use '@angular/material' as mat;
-// @use './styles/material-css-variables' as *;
 
 @layer utilities {
   .app-loader-filter {
@@ -13,26 +14,6 @@
     filter: hue-rotate(23deg) saturate(1.3);
   }
 }
-
-// @include mat.elevation-classes();
-// @include mat.app-background();
-
-// $chat-spin-theme: mat.define-theme(
-//   (
-//     color: (
-//       theme-type: light,
-//       primary: mat.$azure-palette,
-//       tertiary: mat.$blue-palette,
-//     ),
-//     density: (
-//       scale: 0,
-//     ),
-//   )
-// );
-
-// :root {
-//   @include mat.all-component-themes($chat-spin-theme);
-// }
 
 html,
 body {

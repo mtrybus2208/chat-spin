@@ -1,6 +1,12 @@
 export type FileAttachment = {
-  file: File;
   id: string;
+  file: File | null;
+  url?: string;
+  isUploading?: boolean;
+  objectKey?: string;
+};
+
+export type FileToDisplay = {
   url?: string;
   isUploading?: boolean;
 };

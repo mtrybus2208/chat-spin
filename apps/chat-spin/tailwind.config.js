@@ -53,10 +53,7 @@ module.exports = {
           'base-200': '#212121',
           'base-300': '#242424',
           neutral: '#2c2b2b',
-          // accent: '#1B1B1B',
-          // '.tooltip-primary	': {
-          //   'background-color': 'red',
-          // },
+          '--brand': '#272727',
         },
       },
     ],

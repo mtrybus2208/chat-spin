@@ -5,6 +5,11 @@ import { SKIP_ERROR_HANDLER } from '@mtrybus/util-http-requests';
 import { FileAttachment } from '@mtrybus/util-types';
 import { catchError, map, Observable, of } from 'rxjs';
 
+export interface PresignedUrlResponse {
+  url: string;
+  objectKey: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,12 +17,14 @@ export class DataAccessAttachmentService {
   private readonly httpClient = inject(HttpClient);
   private readonly appConfig = inject(APP_CONFIG);
 
-  getPresignedUrl$(attachment: FileAttachment): Observable<{ url: string }> {
+  getPresignedUrl$(
+    attachment: FileAttachment
+  ): Observable<PresignedUrlResponse> {
     return this.httpClient
-      .post<{ url: string }>(
+      .post<PresignedUrlResponse>(
         `${this.appConfig.chatSpinFilesApiUrl}/photos`,
         {
-          filename: attachment.file.name,
+          filename: attachment.file?.name ?? '',
         },
         {
           context: new HttpContext().set(SKIP_ERROR_HANDLER, true),
@@ -27,6 +34,7 @@ export class DataAccessAttachmentService {
         catchError((error) => {
           return of({
             url: '',
+            objectKey: '',
             id: attachment.id,
             isSuccess: false,
             error,

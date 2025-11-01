@@ -21,12 +21,14 @@ import {
 } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ChatWebSocketService } from '@mtrybus/data-access-chat';
+import { AttachmentsQueueService } from '@mtrybus/feature-attachments';
 import {
   AvatarPlaceholderComponent,
   SharedAvatarPlaceholderService,
   SnackbarService,
 } from '@mtrybus/ui';
-import { EventAction, SocketMessage } from '@mtrybus/util-types';
+import { APP_CONFIG } from '@mtrybus/util-config';
+import { EventAction, MessageData, SocketMessage } from '@mtrybus/util-types';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 
 import { ChatMessage } from '../../types';
@@ -34,8 +36,6 @@ import { ChatBarComponent } from '../chat-bar/chat-bar.component';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
 import { ChatMessagesListComponent } from '../chat-messages-list/chat-messages-list.component';
 import { RoomInfoComponent } from '../room-info/room-info.component';
-
-// tutaj
 
 @Component({
   selector: 'lib-feature-chat',
@@ -50,6 +50,7 @@ import { RoomInfoComponent } from '../room-info/room-info.component';
   ],
   templateUrl: './feature-chat.component.html',
   providers: [SharedAvatarPlaceholderService, MatSnackBar, SnackbarService],
+  styleUrl: './feature-chat.component.scss',
 })
 export class FeatureChatComponent implements OnInit, AfterViewInit {
   private destroyRef = inject(DestroyRef);
@@ -61,9 +62,13 @@ export class FeatureChatComponent implements OnInit, AfterViewInit {
   private readonly snackbarStateService = inject(SnackbarService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly scrollContainer = viewChild<ElementRef>('scrollContainer');
+  private readonly attachmentsQueueService = inject(AttachmentsQueueService);
+  private readonly appConfig = inject(APP_CONFIG);
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  readonly chatSpinFilesCdnUrl = this.appConfig.chatSpinFilesCdnUrl;
 
   readonly avatarNames =
     this.sharedAvatarPlaceholderService.getUniqueAvatarNamesPair();
@@ -119,6 +124,7 @@ export class FeatureChatComponent implements OnInit, AfterViewInit {
 
       const chatMessage: ChatMessage = {
         text: sendMessageEvent.data?.message ?? '',
+        attachments: sendMessageEvent.data?.attachments || [],
         createdAt: Date.now(),
         isHost,
         user: { id: 1, name },
@@ -139,6 +145,22 @@ export class FeatureChatComponent implements OnInit, AfterViewInit {
     loop: true,
   };
 
+  readonly parsedMessages = computed(() => {
+    const msgs = this.messagesArray();
+
+    return msgs.map((msg) => {
+      return {
+        ...msg,
+        attachments: msg.attachments?.map((attachment) => ({
+          id: attachment?.objectKey || '',
+          url: `${this.chatSpinFilesCdnUrl}/${attachment.objectKey}`,
+          file: null,
+          isUploading: false,
+        })),
+      };
+    });
+  });
+
   constructor() {
     this.destroyRef.onDestroy(() => {
       this.chatWebSocketService.close();
@@ -150,13 +172,15 @@ export class FeatureChatComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/']);
   }
 
-  onSendMessage(message: string): void {
+  onSendMessage(data: MessageData): void {
     this.chatWebSocketService.sendMessage({
       action: EventAction.SEND_MESSAGE,
       data: {
-        message,
+        message: data.message,
+        attachments: data.attachments,
       },
     });
+    this.attachmentsQueueService.uploadedFiles.set([]);
   }
 
   scrollToBottom(): void {

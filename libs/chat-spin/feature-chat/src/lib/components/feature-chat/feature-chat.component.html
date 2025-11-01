@@ -5,19 +5,37 @@
   <div class="flex-1 overflow-y-auto" #scrollContainer>
     <lib-room-info></lib-room-info>
     <lib-chat-messages-list>
-      @for(message of messagesArray(); track message.createdAt) {
+      @for(message of parsedMessages(); track message.createdAt) {
 
-      <lib-chat-message [message]="message">
+      <lib-chat-message
+        [message]="{
+          createdAt: message.createdAt,
+          isHost: message.isHost,
+          text: message.text, 
+        }"
+        [user]="{
+          id: message.user.id,
+          name: message.user.name
+        }"
+      >
         <lib-avatar-placeholder
           avatar
           [name]="message.isHost ? avatarNames[0] : avatarNames[1]"
         ></lib-avatar-placeholder>
       </lib-chat-message>
-      }
+      @if(message.attachments?.length) { @for(attachment of message.attachments;
+      track attachment.id) {
+      <img
+        [src]="attachment.url"
+        alt="File"
+        class="max-w-[300px] w-full rounded-lg"
+      />
+
+      } } }
     </lib-chat-messages-list>
   </div>
 
-  <div class="max-w-full bg-base-200">
+  <div class="chat-bar-container max-w-full">
     <lib-chat-bar
       (closeChat)="onCloseChat()"
       (sendMessage)="onSendMessage($event)"

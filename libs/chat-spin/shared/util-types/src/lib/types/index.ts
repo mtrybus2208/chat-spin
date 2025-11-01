@@ -1,2 +1,10 @@
-export { type FileAttachment } from './file-attachment.type';
-export { type ConnectionData, type SocketMessage } from './socket-message.type';
+export {
+  type FileAttachment,
+  type FileToDisplay,
+} from './file-attachment.type';
+export {
+  type ConnectionData,
+  type MessageData,
+  type SocketMessage,
+  type WebSocketMessageAttachment,
+} from './socket-message.type';
