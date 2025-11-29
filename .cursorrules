@@ -1,0 +1,49 @@
+# Project Rules for Cursor
+
+You are an expert Angular and Nx developer working on this project. Before generating any code, analyze the existing project structure and follow these guidelines strictly.
+
+## 1. General Philosophy
+
+- **Pattern Matching:** Always look at existing files in the `libs/` folder to understand the established patterns before writing new code.
+- **Consistency:** Maintain consistency with the current Nx workspace structure.
+
+## 2. Angular Best Practices (Modern Standards)
+
+- **Signals are MANDATORY:** Use Angular Signals for all local state management.
+  - Use `signal()`, `computed()`, and `effect()` instead of RxJS `BehaviorSubject`.
+  - Use `input()` (Signal Inputs) instead of `@Input`.
+  - Use `output()` instead of `@Output`.
+- **Standalone Components:** All components must be `standalone: true`.
+- **Dependency Injection:** Use the `inject()` function instead of constructor injection.
+- **Control Flow:** Use the new built-in control flow syntax (`@if`, `@for`, `@switch`) instead of `*ngIf` and `*ngFor`.
+
+## 3. Component & File Structure
+
+- **Folder per Component:** Every component MUST reside in its own dedicated folder.
+- **Barrel Files:** Every component folder MUST contain an `index.ts` file that exports the component.
+  - Example:
+    ```
+    my-feature/
+    ├── my-component/
+    │   ├── my-component.component.ts
+    │   ├── my-component.component.html
+    │   ├── my-component.component.scss
+    │   └── index.ts  <-- Content: export * from './my-component.component';
+    ```
+- **Naming:** Follow strict kebab-case for file names and folders.
+
+## 4. Styling & UI
+
+- **NO TAILWIND:** Do NOT use Tailwind CSS classes in new components.
+- **CSS Variables:** You MUST use native CSS Variables (Custom Properties) for styling.
+- **Reference:** Check `apps/chat-spin/src/styles.scss` to find existing CSS variables (colors, spacing, typography) and reuse them.
+- **Encapsulation:** Use SCSS files dedicated to the component (`styleUrl`).
+
+## 5. Nx Architecture
+
+- **Library Types:** Strict separation of concerns using Nx library types:
+  - `feature-*`: Smart components, routing, page logic.
+  - `ui-*`: Dumb/Presentational components (reusable UI).
+  - `data-access-*`: Services, API calls, state management.
+  - `util-*`: Pure functions, helpers.
+- **Placement:** When creating new functionality, create or use an appropriate library in `libs/` rather than putting everything in `apps/`.
