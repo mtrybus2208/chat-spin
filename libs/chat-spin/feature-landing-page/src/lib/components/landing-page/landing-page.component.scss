@@ -14,7 +14,7 @@
 .hero-section {
   display: flex;
   gap: var(--ds-space-10);
-  background: #12143c;
+  background: linear-gradient(200deg, #0e1030 0%, #12143c 40%, #2e2057 100%);
   color: #fff;
   flex-wrap: wrap;
   padding: var(--ds-space-8);
