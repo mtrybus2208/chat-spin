@@ -1,19 +1,16 @@
 import { Route } from '@angular/router';
 
-import { FeatureDashboardComponent } from '@mtrybus/feature-dashboard';
+import { LandingPageComponent } from '@mtrybus/feature-landing-page';
 import { PageNotFoundComponent } from '@mtrybus/ui';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () =>
-      import('@mtrybus/feature-landing-page').then(
-        (m) => m.LandingPageComponent
-      ),
+    component: LandingPageComponent,
   },
   {
     path: 'dashboard',
-    component: FeatureDashboardComponent,
+    component: LandingPageComponent,
   },
   {
     path: 'chat',

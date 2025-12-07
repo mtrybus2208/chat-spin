@@ -1,9 +1,9 @@
 .navbar {
   display: flex;
   align-items: center;
-  background-color: var(--ds-color-surface-navbar);
+  background: #181a46;
   color: #fff;
-  padding: 40px;
+  padding: 20px;
 
   &__section {
     flex: 1;

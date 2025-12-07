@@ -17,6 +17,7 @@
         "tsConfig": "apps/chat-spin/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
+          "apps/chat-spin/src/assets",
           {
             "glob": "**/*",
             "input": "libs/assets",
