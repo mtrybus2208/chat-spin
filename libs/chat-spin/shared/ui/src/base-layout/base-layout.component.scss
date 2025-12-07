@@ -1,0 +1,40 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: var(--ds-color-surface-navbar);
+  color: #fff;
+  padding: 40px;
+
+  &__section {
+    flex: 1;
+
+    &--logo {
+      display: flex;
+    }
+
+    &--content {
+      display: flex;
+      justify-content: center;
+    }
+
+    &--actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.theme-icon {
+  width: 50px;
+  height: 50px;
+  background-color: var(--ds-color-surface-control);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ds-radius-xl);
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  &:hover {
+    opacity: 0.8;
+  }
+}

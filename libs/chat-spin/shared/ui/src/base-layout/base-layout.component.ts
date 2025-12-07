@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
-import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { DesktopMenuComponent } from '../desktop-menu/desktop-menu.component';
-import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { MobileMenuComponent } from '../mobile-menu/mobile-menu.component';
 
 @Component({
   selector: 'lib-base-layout',
@@ -23,15 +23,19 @@ export class BaseLayoutComponent {
   readonly links = [
     {
       value: '',
-      label: 'Dashboard',
+      label: 'Home',
+    },
+    {
+      value: 'about',
+      label: 'About',
     },
     {
       value: 'chat',
       label: 'Chat',
     },
     {
-      value: 'information',
-      label: 'Information',
+      value: 'support',
+      label: 'Support',
     },
   ];
 
