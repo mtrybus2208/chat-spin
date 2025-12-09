@@ -10,11 +10,18 @@
 
     &--logo {
       display: flex;
+      font-size: 25px;
+      span {
+        font-weight: 200;
+        color: #513399;
+      }
     }
 
     &--content {
       display: flex;
       justify-content: center;
+      gap: 60px;
+      font-size: 20px;
     }
 
     &--actions {

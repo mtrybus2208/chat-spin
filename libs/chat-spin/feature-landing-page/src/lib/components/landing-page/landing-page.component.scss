@@ -14,11 +14,25 @@
 .hero-section {
   display: flex;
   gap: var(--ds-space-10);
+  position: relative;
   background: linear-gradient(200deg, #0e1030 0%, #12143c 40%, #2e2057 100%);
+
+  isolation: isolate;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('/assets/images/stars.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.15;
+    z-index: -1;
+  }
   color: #fff;
   flex-wrap: wrap;
   padding: var(--ds-space-8);
-  min-height: 600px;
+  min-height: 650px;
 
   &__col {
     flex: 1;
