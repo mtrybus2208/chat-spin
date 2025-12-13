@@ -8,7 +8,6 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 
-import player from 'lottie-web';
 import { provideLottieOptions } from 'ngx-lottie';
 
 import { APP_CONFIG } from '@mtrybus/util-config';
@@ -29,7 +28,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([errorHandlerInterceptor])
     ),
     provideLottieOptions({
-      player: () => player,
+      player: () => import('lottie-web'),
     }),
     {
       provide: APP_CONFIG,

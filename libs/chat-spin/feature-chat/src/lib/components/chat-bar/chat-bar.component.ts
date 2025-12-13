@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, inject, output } from '@angular/core';
 
 import { TextFieldModule } from '@angular/cdk/text-field';
@@ -17,13 +17,12 @@ import { ChatImageThumbnailComponent } from '../chat-image-thumbnail/chat-image-
 @Component({
   selector: 'lib-chat-bar',
   imports: [
-    CommonModule,
     TextFieldModule,
     MatIconModule,
     ReactiveFormsModule,
     FileUploadButtonComponent,
-    ChatImageThumbnailComponent,
-  ],
+    ChatImageThumbnailComponent
+],
   templateUrl: './chat-bar.component.html',
   styleUrl: './chat-bar.component.scss',
 })

@@ -32,6 +32,9 @@
       "@mtrybus/feature-information": [
         "libs/chat-spin/feature-information/src/index.ts"
       ],
+      "@mtrybus/feature-landing-page": [
+        "libs/chat-spin/feature-landing-page/src/index.ts"
+      ],
       "@mtrybus/ui": ["libs/chat-spin/shared/ui/src/index.ts"],
       "@mtrybus/util-config": [
         "libs/chat-spin/shared/util-config/src/index.ts"
