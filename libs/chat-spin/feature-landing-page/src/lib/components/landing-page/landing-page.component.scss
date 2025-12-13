@@ -24,9 +24,9 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: url('/assets/images/stars.png') no-repeat center center;
+    background: url('/assets/images/stars2.png') no-repeat center center;
     background-size: cover;
-    opacity: 0.15;
+    // opacity: 0.15;
     z-index: -1;
   }
   color: #fff;
@@ -73,6 +73,33 @@
   &__image {
     max-width: 460px;
     animation: float 6s ease-in-out infinite;
+  }
+}
+
+.key-features-section {
+  display: flex;
+  gap: var(--ds-space-10);
+  justify-content: space-around;
+  align-items: center;
+  padding: var(--ds-space-8);
+  background: linear-gradient(200deg, #0e1030 0%, #231e48 40%, #2e2057 100%);
+  min-height: 400px;
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-6);
+    justify-content: center;
+    align-items: center;
+  }
+  // &__image {
+  //   max-width: 460px;
+  // }
+  &__description {
+    font-size: 25px;
+    font-weight: 200;
+    line-height: 1.2;
+    max-width: fit-content;
   }
 }
 
