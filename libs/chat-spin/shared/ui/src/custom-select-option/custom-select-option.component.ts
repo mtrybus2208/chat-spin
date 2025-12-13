@@ -7,13 +7,13 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { Option } from '../interfaces';
 
 @Component({
   selector: 'lib-custom-select-option',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './custom-select-option.component.html',
   host: {
     '[class.active]': 'active',

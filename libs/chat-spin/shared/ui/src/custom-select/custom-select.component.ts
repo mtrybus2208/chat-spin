@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -19,11 +19,10 @@ import { AbstractValueAccessor } from '../classes/value-accessor.abstract';
 @Component({
   selector: 'lib-custom-select',
   imports: [
-    CommonModule,
     CustomSelectTriggerForDirective,
     CustomSelectListComponent,
-    CustomSelectOptionComponent,
-  ],
+    CustomSelectOptionComponent
+],
   templateUrl: './custom-select.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [

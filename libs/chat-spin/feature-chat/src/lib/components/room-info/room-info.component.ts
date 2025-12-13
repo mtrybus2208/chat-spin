@@ -1,9 +1,9 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'lib-room-info',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './room-info.component.html',
 })
 export class RoomInfoComponent {
