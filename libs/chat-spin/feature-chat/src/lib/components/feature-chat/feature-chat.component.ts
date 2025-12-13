@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -40,14 +40,13 @@ import { RoomInfoComponent } from '../room-info/room-info.component';
 @Component({
   selector: 'lib-feature-chat',
   imports: [
-    CommonModule,
     RoomInfoComponent,
     ChatMessagesListComponent,
     ChatMessageComponent,
     ChatBarComponent,
     LottieComponent,
-    AvatarPlaceholderComponent,
-  ],
+    AvatarPlaceholderComponent
+],
   templateUrl: './feature-chat.component.html',
   providers: [SharedAvatarPlaceholderService, MatSnackBar, SnackbarService],
   styleUrl: './feature-chat.component.scss',
