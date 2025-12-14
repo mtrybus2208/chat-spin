@@ -25,6 +25,9 @@
           }
         ],
         "styles": ["apps/chat-spin/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs"]
+        },
         "scripts": [],
         "server": "apps/chat-spin/src/main.server.ts",
         "prerender": true,

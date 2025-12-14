@@ -29,7 +29,8 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "uuid": "^11.1.0",
-    "zone.js": "0.15.0"
+    "zone.js": "0.15.0",
+    "@mtrybus/shared-ui": "file:libs/shared/shared-ui"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "~2.1.2",

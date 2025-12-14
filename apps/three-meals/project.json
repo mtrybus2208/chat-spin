@@ -23,7 +23,10 @@
             "output": "assets"
           }
         ],
-        "styles": ["apps/three-meals/src/styles.scss"]
+        "styles": ["apps/three-meals/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs"]
+        }
       },
       "configurations": {
         "production": {
