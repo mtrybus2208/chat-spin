@@ -43,7 +43,10 @@
       "@mtrybus/util-http-requests": [
         "libs/chat-spin/shared/util-http-requests/src/index.ts"
       ],
-      "@mtrybus/util-types": ["libs/chat-spin/shared/util-types/src/index.ts"]
+      "@mtrybus/util-types": ["libs/chat-spin/shared/util-types/src/index.ts"],
+      "@mtrybus/three-meals/feature-meals-dashboard": [
+        "libs/three-meals/feature-meals-dashboard/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
