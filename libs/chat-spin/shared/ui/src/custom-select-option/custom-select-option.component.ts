@@ -1,13 +1,5 @@
 import { Highlightable } from '@angular/cdk/a11y';
-import {
-  booleanAttribute,
-  Component,
-  ElementRef,
-  input,
-  signal,
-  viewChild,
-} from '@angular/core';
-
+import { Component, ElementRef, input, signal, viewChild } from '@angular/core';
 
 import { Option } from '../interfaces';
 
@@ -17,15 +9,12 @@ import { Option } from '../interfaces';
   templateUrl: './custom-select-option.component.html',
   host: {
     '[class.active]': 'active',
-    '[class.disabled]': 'disabled',
+    '[class.disabled]': 'isDisabled',
   },
 })
 export class CustomSelectOptionComponent implements Highlightable {
   public option = input<Option>();
-  public isDisabled = input(false, {
-    transform: booleanAttribute,
-    alias: 'disabled',
-  });
+  public isDisabled = input(false);
   public active = signal(false);
   public optionRef = viewChild<ElementRef<HTMLElement>>('optionRef');
 
