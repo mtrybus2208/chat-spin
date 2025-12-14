@@ -1,16 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { form } from '@angular/forms/signals';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Option } from '@mtrybus/ui';
-
 import { Router } from '@angular/router';
+import { Option } from '@mtrybus/ui';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 
 export interface IProfileConfigFormGroup {
@@ -32,6 +38,20 @@ export interface IProfileConfigFormGroup {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileConfigurationComponent {
+  loginModel = signal({
+    email: '',
+    password: '',
+  });
+
+  loginForm = form(this.loginModel);
+
+  constructor() {
+    effect(() => {
+      const formValue = this.loginForm();
+      console.log({ formValue });
+    });
+  }
+
   public readonly options: Option[] = [
     {
       label: 'Male',
