@@ -60,6 +60,8 @@
   --ds-font-label-regular-xs: 400 10px/14px var(--ds-font-family);
 
   /* Bold */
+  --ds-font-label-bold-xxl: 500 24px/32px var(--ds-font-family);
+  --ds-font-label-bold-xl: 500 20px/28px var(--ds-font-family);
   --ds-font-label-bold-lg: 600 16px/20px var(--ds-font-family);
   --ds-font-label-bold-md: 500 14px/18px var(--ds-font-family);
   --ds-font-label-bold-sm: 500 12px/16px var(--ds-font-family);
@@ -123,6 +125,7 @@
   --ds-line-height-2xs: 16px;
   --ds-line-height-3xs: 14px;
 
+  --ds-font-weight-light: 300;
   --ds-font-weight-regular: 400;
   --ds-font-weight-medium: 500;
   --ds-font-weight-semibold: 600;
