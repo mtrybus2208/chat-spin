@@ -7,6 +7,37 @@
   overflow: hidden;
   min-height: 100%;
 
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-4);
+    align-items: center;
+    max-width: 530px;
+    margin: 0 auto;
+    width: 80%;
+
+    p-button {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__form-title {
+    font: var(--ds-font-body-regular-md);
+    font-weight: var(--ds-font-weight-light);
+  }
+
+  &__form-items {
+    width: 100%;
+    gap: var(--ds-space-4);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include shared.for-size(phone-only) {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @include shared.for-size(phone-only) {
     padding: var(--ds-space-6);
   }
@@ -33,7 +64,7 @@
   }
 
   &__card {
-    background-color: rgba(255, 253, 242, 0.5);
+    background-color: rgba(255, 253, 242, 0.7);
     border-radius: var(--ds-radius-2xl);
     padding: var(--ds-space-8);
     display: flex;

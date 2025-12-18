@@ -1,13 +1,15 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   signal,
 } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { FluidModule } from 'primeng/fluid';
 import { InputNumberModule } from 'primeng/inputnumber';
 
 import { MealsCounterComponent } from '../components';
@@ -21,27 +23,48 @@ import { MealsCounterComponent } from '../components';
     DatePickerModule,
     FloatLabelModule,
     InputNumberModule,
+    FluidModule,
   ],
   templateUrl: './feature-meals-dashboard.component.html',
   styleUrl: './feature-meals-dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeatureMealsDashboardComponent {
-  private readonly formbuilder = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
 
-  readonly form = this.formbuilder.group({
-    name: ['', Validators.required],
-    date: ['', Validators.required],
-    age: ['', Validators.required],
+  readonly mealsCounter = signal<number>(0);
+
+  constructor() {
+    effect(() => {
+      const counter = this.mealsCounter();
+
+      this.mealsControls.clear();
+
+      if (counter > 0) {
+        for (let i = 0; i < counter; i++) {
+          this.mealsControls.push(this.formBuilder.control(''));
+        }
+      } else {
+        this.mealsControls.clear();
+      }
+    });
+  }
+
+  readonly mealForm = this.formBuilder.group({
+    meals: this.formBuilder.array([]),
   });
+
+  get mealsControls(): FormArray {
+    return this.mealForm.controls.meals;
+  }
 
   readonly date = signal<Date | null>(null);
 
   onCounterChange(counter: number): void {
-    console.log({ counter });
+    this.mealsCounter.set(counter);
   }
 
   onSubmit(): void {
-    console.log({ form: this.form.value });
+    console.log({ form: this.mealForm.value });
   }
 }
