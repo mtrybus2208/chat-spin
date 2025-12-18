@@ -20,5 +20,17 @@
       <p class="dashboard__counter-title">How many meals per day?</p>
       <lib-meals-counter (counterChange)="onCounterChange($event)" />
     </div>
+    <div class="dashboard__form">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <input type="text" pInputText formControlName="name" />
+        <input type="text" placeholder="asd" />
+        <p-datepicker formControlName="date" />
+        <p-floatlabel variant="on">
+          <p-inputnumber formControlName="age" inputId="on_label" />
+          <label for="on_label">On Label</label>
+        </p-floatlabel>
+        <p-button label="Submit" type="submit" />
+      </form>
+    </div>
   </div>
 </div>
