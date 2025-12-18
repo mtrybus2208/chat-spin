@@ -1,0 +1,31 @@
+.meals-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-9);
+  margin-top: var(--ds-space-7);
+  margin-bottom: var(--ds-space-7);
+
+  &__button {
+    background-color: #f5c725;
+    border: none;
+    border-radius: 100%;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 37px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: #d6b600;
+    }
+  }
+
+  &__value {
+    font-size: 40px;
+    font-weight: 500;
+  }
+}

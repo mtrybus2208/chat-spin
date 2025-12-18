@@ -1,0 +1,9 @@
+<div class="meals-counter">
+  <button class="meals-counter__button" (click)="onDecrement()">
+    <span>-</span>
+  </button>
+  <span class="meals-counter__value">{{ counter() || 0 }}</span>
+  <button class="meals-counter__button" (click)="onIncrement()">
+    <span>+</span>
+  </button>
+</div>

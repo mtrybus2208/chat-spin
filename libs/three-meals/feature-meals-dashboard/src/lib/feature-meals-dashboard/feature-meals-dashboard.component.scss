@@ -58,14 +58,19 @@
   &__header-subtitle {
     font: var(--ds-font-body-regular-md);
     font-weight: var(--ds-font-weight-light);
-    color: var(--ds-color-text-muted);
   }
 
   &__counter-title {
     font: var(--ds-font-body-regular-md);
     font-weight: var(--ds-font-weight-light);
-    color: var(--ds-color-text-muted);
     margin-bottom: var(--ds-space-4);
+  }
+
+  &__counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
 

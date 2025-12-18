@@ -88,14 +88,19 @@
       "unitTestRunner": "jest"
     },
     "@nx/angular:component": {
-      "style": "none",
+      "style": "scss",
+      "inlineTemplate": false,
+      "inlineStyle": false,
       "changeDetection": "OnPush",
       "skipTests": true,
       "export": false,
       "type": "component"
     },
     "@schematics/angular:component": {
-      "type": "component"
+      "type": "component",
+      "style": "scss",
+      "inlineTemplate": false,
+      "inlineStyle": false
     },
     "@nx/angular:directive": {
       "type": "directive"
