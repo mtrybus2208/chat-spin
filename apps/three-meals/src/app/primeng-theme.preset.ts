@@ -47,5 +47,43 @@ export const THREE_MEALS_PRIMENG_PRESET = definePreset(
   updateSurfacePalette({
     light: threeMealsSurfaceLight,
     dark: auraSurfaceDark,
-  } as unknown as PaletteDesignToken satisfies PaletteDesignToken)
+  } as unknown as PaletteDesignToken satisfies PaletteDesignToken),
+  // Globalny kolor tekstu dla komponentów PrimeNG (buttons, inputs, floatlabel, datepicker itd.)
+  {
+    semantic: {
+      colorScheme: {
+        light: {
+          text: {
+            color: '#362827',
+            hoverColor: '#362827',
+            mutedColor: '#362827',
+            hoverMutedColor: '#362827',
+          },
+          primary: {
+            // np. <p-button> primary używa {primary.contrast.color}
+            contrastColor: '#362827',
+          },
+          formField: {
+            // inputy, placeholdery, labelki (FloatLabel), ikony w polach
+            color: '#362827',
+            placeholderColor: '#362827',
+            floatLabelColor: '#362827',
+            floatLabelFocusColor: '#362827',
+            floatLabelActiveColor: '#362827',
+            iconColor: '#362827',
+          },
+          content: {
+            // teksty w panelach/overlay (np. datepicker popup)
+            color: '#362827',
+            hoverColor: '#362827',
+          },
+          highlight: {
+            // tekst w range/selected itp.
+            color: '#362827',
+            focusColor: '#362827',
+          },
+        },
+      },
+    },
+  }
 );
