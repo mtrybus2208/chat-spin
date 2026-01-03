@@ -1,4 +1,9 @@
-import { AbstractControl, FormArray, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 
 export function uniqueMealTimesValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -6,22 +11,47 @@ export function uniqueMealTimesValidator(): ValidatorFn {
       return null;
     }
 
-    const values = control.getRawValue();
-    const times = values
-      .map((v: any) => {
-        if (!v) return null;
-        const date = new Date(v);
-        return isNaN(date.getTime()) ? null : `${date.getHours()}:${date.getMinutes()}`;
-      })
-      .filter((v: string | null) => v !== null);
+    const controls = control.controls;
+    // Get formatted times
+    const timeStrings = controls.map((c) => {
+      if (!c.value) return null;
+      const d = new Date(c.value);
+      return isNaN(d.getTime()) ? null : `${d.getHours()}:${d.getMinutes()}`;
+    });
 
-    const uniqueTimes = new Set(times);
+    let hasGlobalError = false;
 
-    if (uniqueTimes.size !== times.length) {
-      return { uniqueMealTimes: true };
-    }
+    controls.forEach((childControl, index) => {
+      const time = timeStrings[index];
+      // Check if this time appears more than once
+      // Ignore nulls
+      const isDuplicate =
+        time !== null && timeStrings.filter((t) => t === time).length > 1;
 
-    return null;
+      const currentErrors = childControl.errors || {};
+      const hasDuplicateError = !!currentErrors['duplicateTime'];
+
+      if (isDuplicate) {
+        hasGlobalError = true;
+        if (!hasDuplicateError) {
+          // Add error only if not present to avoid loops
+          // emitEvent: false is crucial to prevent infinite validation loops
+          childControl.setErrors(
+            { ...currentErrors, duplicateTime: true },
+            { emitEvent: false }
+          );
+        }
+      } else {
+        if (hasDuplicateError) {
+          // Remove error
+          const { duplicateTime, ...rest } = currentErrors;
+          childControl.setErrors(Object.keys(rest).length > 0 ? rest : null, {
+            emitEvent: false,
+          });
+        }
+      }
+    });
+
+    return hasGlobalError ? { uniqueMealTimes: true } : null;
   };
 }
-

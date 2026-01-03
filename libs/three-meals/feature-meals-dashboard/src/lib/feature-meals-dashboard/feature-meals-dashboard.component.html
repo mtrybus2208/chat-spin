@@ -80,22 +80,25 @@
             size="small"
             text="Meal time must be in 15-minute intervals."
           ></p-message>
+          } @if (control.getError('duplicateTime') && (control.dirty ||
+          control.touched)) {
+          <p-message
+            severity="error"
+            variant="simple"
+            size="small"
+            text="This time is already selected."
+          ></p-message>
           }
         </div>
         }
       </div>
 
-      @if (mealForm.controls.meals.hasError('uniqueMealTimes') &&
-      mealForm.controls.meals.dirty) {
-      <p-message
-        severity="error"
-        variant="simple"
-        size="small"
-        text="Meal times must be unique."
-      ></p-message>
-      }
-
-      <p-button fluid label="Start Tracking" type="submit" />
+      <p-button
+        fluid
+        label="Start Tracking"
+        type="submit"
+        [disabled]="mealForm.invalid"
+      />
     </form>
   </div>
 </div>
