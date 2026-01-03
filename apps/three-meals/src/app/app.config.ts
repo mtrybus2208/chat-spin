@@ -4,9 +4,13 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { MEALS_APP_CONFIG_TOKEN } from '@mtrybus/meals/utils-meals';
 import { providePrimeNG } from 'primeng/config';
+import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 import { THREE_MEALS_PRIMENG_PRESET } from './primeng-theme.preset';
+
+import { provideAuth } from 'angular-auth-oidc-client';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,12 +20,22 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: {
         preset: THREE_MEALS_PRIMENG_PRESET,
-        // PrimeUIX domyślnie przełącza na dark wg systemu (`system`).
-        // Jeśli masz system w dark-mode, datepicker/overlaye będą wyglądały "czarno".
-        // Wymuszamy light scheme dla tej aplikacji.
         options: {
           darkModeSelector: 'none',
         },
+      },
+    }),
+    {
+      provide: MEALS_APP_CONFIG_TOKEN,
+      useValue: environment,
+    },
+    provideAuth({
+      config: {
+        authority: environment.auth.authority,
+        redirectUrl: environment.auth.redirectUrl,
+        clientId: environment.auth.clientId,
+        scope: environment.auth.scope,
+        responseType: environment.auth.responseType,
       },
     }),
   ],

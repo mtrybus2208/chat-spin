@@ -1,0 +1,51 @@
+// Design System color tokens
+// Prefixed with --ds-color-meals-* for consistency with spacing & radius tokens
+
+:root {
+  /* Base tones (background hierarchy) */
+  --ds-color-meals-base-100: #faeb95;
+  --ds-color-meals-base-200: #212121;
+  --ds-color-meals-base-300: #242424;
+
+  /* Neutral family (UI surfaces, borders, text contrast) */
+  --ds-color-meals-neutral-50: #3a3a3a;
+  --ds-color-meals-neutral-100: #333333;
+  --ds-color-meals-neutral-200: #2e2e2e;
+  --ds-color-meals-neutral-300: #2c2b2b;
+  --ds-color-meals-neutral-400: #292929;
+  --ds-color-meals-neutral-500: #272727;
+  --ds-color-meals-neutral-600: #232323;
+  --ds-color-meals-neutral-700: #1f1f1f;
+  --ds-color-meals-neutral-800: #1b1b1b;
+  --ds-color-meals-neutral-900: #171717;
+
+  /* Brand / accent (main accent color for buttons, highlights, etc.) */
+  --ds-color-meals-brand: #272727; /* main brand tone */
+  --ds-color-meals-brand-light: #343434;
+  --ds-color-meals-brand-dark: #1f1f1f;
+
+  /* Accent colors for states or subtle highlights */
+  --ds-color-meals-accent-1: #9344f4; /* hover surface */
+  --ds-color-meals-accent-2: #4a4948; /* slightly lighter accent */
+  --ds-color-meals-accent-3: #5c5b5a; /* text/icon highlight */
+
+  /* Text hierarchy */
+  --ds-color-meals-text-primary: #362827;
+  --ds-color-meals-text-secondary: #bcbcbc;
+  --ds-color-meals-text-muted: #8a8a8a;
+
+  /* Borders / outlines */
+  --ds-color-meals-border-light: #343434;
+  --ds-color-meals-border-medium: #2b2b2b;
+  --ds-color-meals-border-dark: #1f1f1f;
+
+  /* Status colors */
+  --ds-color-meals-success: #4caf50;
+  --ds-color-meals-warning: #ffb300;
+  --ds-color-meals-error: #ef5350;
+  --ds-color-meals-info: #29b6f6;
+
+  /* Layout & Surfaces (Specific component backgrounds) */
+  --ds-color-meals-surface-navbar: #2c2f52;
+  --ds-color-meals-surface-control: #12143c; /* Dawne #12143c */
+}

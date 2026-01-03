@@ -26,26 +26,74 @@
       [formGroup]="mealForm"
       (ngSubmit)="onSubmit()"
     >
-      <p class="dashboard__form-title">What time do you eat?</p>
+      <p class="dashboard__form-title">
+        What time do you eat?
+        <span
+          class="dashboard__form-hint-icon pi pi-info-circle"
+          (click)="onHintToogle()"
+        ></span>
+      </p>
+      @if(showMealsHintDescription()) {
+      <div class="dashboard__form-hint-description">
+        <p class="dashboard__form-hint-description-title">🍽 Meals per day</p>
+
+        <p>
+          The number of meals you choose affects your energy levels, hunger
+          control, and how easily you stick to your calorie goals. There is no
+          single best option — the right choice depends on your lifestyle, daily
+          routine, and personal preferences.
+        </p>
+        <p-divider />
+        <p class="dashboard__form-hint-description-title">⏱ Eating window</p>
+        <p>
+          Your eating window is the time range during the day when you consume
+          all your meals, which can influence appetite, focus, and consistency.
+          A shorter or longer window should be chosen based on what helps you
+          feel energized, satisfied, and able to maintain your plan long term.
+        </p>
+      </div>
+      }
 
       <div class="dashboard__form-items">
         @for(control of mealForm.controls.meals.controls; track control.value;
         let i = $index) {
-        <p-floatlabel variant="on">
-          <p-datepicker
-            fluid
-            [formControl]="control"
-            [timeOnly]="true"
-            [inputId]="'calendar-timeonly-' + i"
-          />
+        <div class="dashboard__form-item">
+          <p-floatlabel variant="on">
+            <p-datepicker
+              fluid
+              [formControl]="control"
+              [timeOnly]="true"
+              [stepMinute]="15"
+              [inputId]="'calendar-timeonly-' + i"
+            />
 
-          <label
-            [for]="'calendar-timeonly-' + i"
-            [textContent]="'Meal ' + (i + 1) + ' time'"
-          ></label>
-        </p-floatlabel>
+            <label
+              [for]="'calendar-timeonly-' + i"
+              [textContent]="'Meal ' + (i + 1) + ' time'"
+            ></label>
+          </p-floatlabel>
+          @if (control.getError('timeInterval') && (control.dirty ||
+          control.touched)) {
+          <p-message
+            severity="error"
+            variant="simple"
+            size="small"
+            text="Meal time must be in 15-minute intervals."
+          ></p-message>
+          }
+        </div>
         }
       </div>
+
+      @if (mealForm.controls.meals.hasError('uniqueMealTimes') &&
+      mealForm.controls.meals.dirty) {
+      <p-message
+        severity="error"
+        variant="simple"
+        size="small"
+        text="Meal times must be unique."
+      ></p-message>
+      }
 
       <p-button fluid label="Start Tracking" type="submit" />
     </form>

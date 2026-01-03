@@ -85,5 +85,31 @@ export const THREE_MEALS_PRIMENG_PRESET = definePreset(
         },
       },
     },
+    components: {
+      button: {
+        root: {
+          borderRadius: 'var(--ds-radius-button)',
+          paddingY: 'var(--ds-space-3)',
+        },
+      },
+      datepicker: {
+        panel: {
+          borderRadius: 'var(--ds-radius-2xl)',
+          padding: 'var(--ds-space-3)',
+        },
+      },
+      inputtext: {
+        root: {
+          paddingX: 'var(--ds-space-3)',
+          paddingY: 'var(--ds-space-3-5)',
+          borderRadius: 'var(--ds-radius-2xl)',
+        },
+      },
+      message: {
+        text: {
+          fontWeight: '400',
+        },
+      },
+    },
   }
 );

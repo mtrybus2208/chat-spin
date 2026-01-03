@@ -1,14 +1,15 @@
 @use '../../../libs/shared/util-directives/src/styles/global-variables' as *;
 @use '@angular/cdk';
 @use 'shared/shared-ui/src/styles/reset';
+@use 'primeicons/primeicons.css';
 
 @include cdk.text-field-autosize;
 
 html,
 body {
   height: 100%;
-  background: #faeb95;
-  color: #362827;
+  background-color: var(--ds-color-meals-base-100);
+  color: var(--ds-color-meals-text-primary);
 }
 body {
   margin: 0;
