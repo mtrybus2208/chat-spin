@@ -49,11 +49,10 @@ export class FeatureMealsDashboardComponent {
   constructor() {
     effect(() => {
       const counter = this.mealsCounter();
+      const currentLength = this.mealsControls.length;
 
-      this.mealsControls.clear();
-
-      if (counter > 0) {
-        for (let i = 0; i < counter; i++) {
+      if (counter > currentLength) {
+        for (let i = currentLength; i < counter; i++) {
           const defaultDate = new Date();
           defaultDate.setHours(8 + i, 0, 0, 0);
 
@@ -61,8 +60,10 @@ export class FeatureMealsDashboardComponent {
             this.formBuilder.control(defaultDate, [timeIntervalValidator(15)])
           );
         }
-      } else {
-        this.mealsControls.clear();
+      } else if (counter < currentLength) {
+        for (let i = currentLength - 1; i >= counter; i--) {
+          this.mealsControls.removeAt(i);
+        }
       }
     });
   }

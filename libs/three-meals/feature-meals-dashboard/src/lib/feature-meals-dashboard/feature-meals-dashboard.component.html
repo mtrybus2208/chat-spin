@@ -60,12 +60,18 @@
         <div class="dashboard__form-item">
           <p-floatlabel variant="on">
             <p-datepicker
+              [iconDisplay]="'input'"
+              [showIcon]="true"
               fluid
               [formControl]="control"
               [timeOnly]="true"
               [stepMinute]="15"
               [inputId]="'calendar-timeonly-' + i"
-            />
+            >
+              <ng-template #inputicon let-clickCallBack="clickCallBack">
+                <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+              </ng-template>
+            </p-datepicker>
 
             <label
               [for]="'calendar-timeonly-' + i"
