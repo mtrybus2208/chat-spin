@@ -91,6 +91,17 @@ export const THREE_MEALS_PRIMENG_PRESET = definePreset(
           borderRadius: 'var(--ds-radius-button)',
           paddingY: 'var(--ds-space-3)',
         },
+        css: `
+          .p-button {
+              border: 2px solid var(--ds-color-meals-neutral-50);
+              border-bottom-width: 4px;
+          }
+          .p-button:not(:disabled):hover,
+          .p-button:not(:disabled):active {
+              border: 2px solid var(--ds-color-meals-neutral-50);
+              border-bottom-width: 4px;
+          }
+        `,
       },
       datepicker: {
         panel: {
