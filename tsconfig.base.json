@@ -49,7 +49,10 @@
       ],
       "@mtrybus/shared-ui": ["libs/shared/shared-ui/src/index.ts"],
       "@mtrybus/utils": ["libs/shared/utils/src/index.ts"],
-      "@mtrybus/meals/utils-meals": ["libs/three-meals/utils/src/index.ts"]
+      "@mtrybus/meals/utils-meals": ["libs/three-meals/utils/src/index.ts"],
+      "@mtrybus/feature-meals-tracker-page": [
+        "libs/three-meals/feature-meals-tracker-page/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

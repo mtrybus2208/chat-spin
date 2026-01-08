@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,6 +14,7 @@ import { FluidModule } from 'primeng/fluid';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MessageModule } from 'primeng/message';
 
+import { Router } from '@angular/router';
 import {
   timeIntervalValidator,
   uniqueMealTimesValidator,
@@ -31,7 +31,6 @@ import { MealsCounterComponent } from '../components';
     FloatLabelModule,
     InputNumberModule,
     FluidModule,
-    NgTemplateOutlet,
     DividerModule,
     MessageModule,
   ],
@@ -41,9 +40,9 @@ import { MealsCounterComponent } from '../components';
 })
 export class FeatureMealsDashboardComponent {
   private readonly formBuilder = inject(FormBuilder);
+  private readonly router = inject(Router);
 
   readonly mealsCounter = signal<number>(0);
-
   readonly showMealsHintDescription = signal<boolean>(false);
 
   constructor() {
@@ -84,6 +83,14 @@ export class FeatureMealsDashboardComponent {
 
   onSubmit(): void {
     console.log({ form: this.mealForm.value });
+
+    this.mealForm.updateValueAndValidity();
+
+    if (this.mealForm.invalid) {
+      return;
+    }
+
+    this.router.navigate(['/meals-tracker']);
   }
 
   onHintToogle(): void {

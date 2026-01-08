@@ -1,0 +1,32 @@
+.meals-tracker-page {
+  padding: var(--ds-space-5);
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  min-height: 100%;
+  background-color: var(--ds-color-background-primary);
+  background-image: url('/assets/bg.png');
+  background-size: cover;
+  background-position: bottom;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--ds-space-5);
+    color: var(--ds-color-meals-text-primary);
+  }
+
+  &__header-title {
+    font: var(--ds-font-display-regular-xl);
+    font-size: 65px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  &__header-subtitle {
+    font: var(--ds-font-body-regular-xxl);
+  }
+}
