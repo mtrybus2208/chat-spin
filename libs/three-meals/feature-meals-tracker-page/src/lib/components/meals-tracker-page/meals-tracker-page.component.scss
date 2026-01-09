@@ -29,4 +29,12 @@
   &__header-subtitle {
     font: var(--ds-font-body-regular-xxl);
   }
+
+  &__meals {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-5);
+    margin: 20px auto;
+    max-width: 700px;
+  }
 }

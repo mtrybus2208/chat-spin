@@ -52,6 +52,9 @@
       "@mtrybus/meals/utils-meals": ["libs/three-meals/utils/src/index.ts"],
       "@mtrybus/feature-meals-tracker-page": [
         "libs/three-meals/feature-meals-tracker-page/src/index.ts"
+      ],
+      "@mtrybus/feature-user-settings": [
+        "libs/three-meals/shared/feature-user-settings/src/index.ts"
       ]
     }
   },

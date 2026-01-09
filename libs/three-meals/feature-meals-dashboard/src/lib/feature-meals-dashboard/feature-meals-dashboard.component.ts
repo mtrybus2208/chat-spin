@@ -19,6 +19,7 @@ import {
   timeIntervalValidator,
   uniqueMealTimesValidator,
 } from '@mtrybus/meals/utils-meals';
+import { SettingsFormFacadeService } from '@mtrybus/feature-user-settings';
 import { MealsCounterComponent } from '../components';
 
 @Component({
@@ -41,9 +42,14 @@ import { MealsCounterComponent } from '../components';
 export class FeatureMealsDashboardComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
+  private readonly settingsFormFacade = inject(SettingsFormFacadeService);
 
   readonly mealsCounter = signal<number>(0);
   readonly showMealsHintDescription = signal<boolean>(false);
+
+  readonly mealForm = this.settingsFormFacade.mealForm;
+  readonly mealsControls = this.settingsFormFacade.mealsControls;
+  readonly date = signal<Date | null>(null);
 
   constructor() {
     effect(() => {
@@ -66,16 +72,6 @@ export class FeatureMealsDashboardComponent {
       }
     });
   }
-
-  readonly mealForm = this.formBuilder.group({
-    meals: this.formBuilder.array([], [uniqueMealTimesValidator()]),
-  });
-
-  get mealsControls(): FormArray {
-    return this.mealForm.controls.meals;
-  }
-
-  readonly date = signal<Date | null>(null);
 
   onCounterChange(counter: number): void {
     this.mealsCounter.set(counter);

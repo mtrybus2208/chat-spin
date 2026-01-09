@@ -1,0 +1,21 @@
+{
+  "name": "feature-user-settings",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/three-meals/shared/feature-user-settings/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/three-meals/shared/feature-user-settings/jest.config.ts",
+        "tsConfig": "libs/three-meals/shared/feature-user-settings/tsconfig.spec.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

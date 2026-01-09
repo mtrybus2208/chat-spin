@@ -1,0 +1,30 @@
+.meal-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #faeec1;
+  border: 2px solid #e8e0b6;
+  min-height: 80px;
+  padding: var(--ds-space-4);
+  border-radius: 25px;
+
+  &__name-section {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-space-4);
+  }
+
+  &__name-section-icon {
+    background: #f6c519;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    i {
+      font-size: 30px;
+    }
+  }
+}

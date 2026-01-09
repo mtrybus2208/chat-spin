@@ -5,4 +5,10 @@
       {{ today() | date : 'fullDate' }}
     </p>
   </div>
+
+  <div class="meals-tracker-page__meals">
+    @for(meal of mealItems(); track meal.time) {
+    <lib-meal-item [time]="meal.time" [name]="meal.name" />
+    }
+  </div>
 </div>
