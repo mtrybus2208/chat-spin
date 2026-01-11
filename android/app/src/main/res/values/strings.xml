@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Three meals</string>
+    <string name="title_activity_main">Three meals</string>
+    <string name="package_name">com.mtrybus.threemeals</string>
+    <string name="custom_url_scheme">com.mtrybus.threemeals</string>
+</resources>

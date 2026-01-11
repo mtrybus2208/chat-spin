@@ -84,7 +84,8 @@
   }
 
   &__card {
-    background-color: rgba(255, 253, 242, 0.7);
+    background-color: rgba(255, 253, 242, 1);
+    border: 2px solid #f9eaea;
     border-radius: var(--ds-radius-2xl);
     padding: var(--ds-space-8);
     display: flex;

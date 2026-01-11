@@ -5,7 +5,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { FormArray, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DividerModule } from 'primeng/divider';
@@ -13,12 +13,10 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { FluidModule } from 'primeng/fluid';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { MessageModule } from 'primeng/message';
+import { LocalStorageService } from '@mtrybus/utils';
 
 import { Router } from '@angular/router';
-import {
-  timeIntervalValidator,
-  uniqueMealTimesValidator,
-} from '@mtrybus/meals/utils-meals';
+import { timeIntervalValidator } from '@mtrybus/meals/utils-meals';
 import { SettingsFormFacadeService } from '@mtrybus/feature-user-settings';
 import { MealsCounterComponent } from '../components';
 
@@ -43,6 +41,7 @@ export class FeatureMealsDashboardComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly settingsFormFacade = inject(SettingsFormFacadeService);
+  private readonly localStorageService = inject(LocalStorageService);
 
   readonly mealsCounter = signal<number>(0);
   readonly showMealsHintDescription = signal<boolean>(false);
@@ -79,6 +78,7 @@ export class FeatureMealsDashboardComponent {
 
   onSubmit(): void {
     console.log({ form: this.mealForm.value });
+    this.localStorageService.setItem('meals', this.mealForm.value);
 
     this.mealForm.updateValueAndValidity();
 

@@ -7,8 +7,14 @@ import {
   signal,
 } from '@angular/core';
 import { SettingsFormFacadeService } from '@mtrybus/feature-user-settings';
+import { LocalStorageService } from '@mtrybus/utils';
 
 import { MealItem } from '../meal-item';
+
+interface MealItemData {
+  time: Date;
+  name: string;
+}
 
 @Component({
   selector: 'lib-meals-tracker-page',
@@ -19,16 +25,26 @@ import { MealItem } from '../meal-item';
 })
 export class MealsTrackerPageComponent {
   private readonly settingsFormFacade = inject(SettingsFormFacadeService);
+  private readonly localStorageService = inject(LocalStorageService);
+
+  readonly mealsFromStorage = signal<{ meals: string[] }>(
+    this.localStorageService.getItem<{ meals: string[] }>('meals') || {
+      meals: [],
+    }
+  );
 
   readonly today = signal(new Date());
 
-  readonly mealsControls = this.settingsFormFacade.mealsControls;
+  constructor() {
+    console.log({ meals: this.mealsFromStorage() });
+  }
 
-  protected readonly mealItems = computed(() => {
-    return this.mealsControls.controls.map((control, index) => {
+  readonly mealsItems = computed(() => {
+    console.log({ mealsSTORAGEEEEEEE: this.mealsFromStorage() });
+    return this.mealsFromStorage().meals.map((meal, idx) => {
       return {
-        time: control.value,
-        name: `Meal ${index + 1}`,
+        time: new Date(meal || ''),
+        name: `Meal ${idx + 1}`,
       };
     });
   });

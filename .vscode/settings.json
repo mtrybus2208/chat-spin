@@ -1,16 +1,50 @@
 {
-  "nxConsole.enableGenerateFromContextMenu": true,
-  "angular.enable-strict-mode-prompt": false,
-  "angular-schematics.schematicsDefaultOptions": {
-    "angular-*": {
-      "externalTemplate": true,
-      "style": "scss"
-    },
-    "angular-component": {
-      "ngOnInit": false
-    },
-    "angular-page": {
-      "skipNgOnInit": true
-    }
-  }
+  // Formatowanie przy zapisie
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  
+  // Angular Language Service jako formatter dla HTML (szablony Angular)
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  
+  // TypeScript
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  
+  // JSON
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  
+  // SCSS/CSS
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  
+  // Angular Language Service - ustawienia
+  // "angular.experimental-ivy": true,
+  // "angular.enable-strict-mode-prompt": false,
+  
+  // Ustawienia formatowania HTML (dla Angular Language Service)
+  // "html.format.wrapAttributes": "auto",
+  // "html.format.wrapLineLength": 80,
+  // "html.format.indentInnerHtml": true,
+  // "html.format.indentHandlebars": false,
+  // "html.format.endWithNewline": true,
+  // "html.format.extraLiners": "",
+  // "html.format.preserveNewLines": true,
+  // "html.format.maxPreserveNewLines": 2,
+  // "html.format.indentSize": 2,
+  // "html.format.tabSize": 2,
+  // "html.format.useTabs": false
 }

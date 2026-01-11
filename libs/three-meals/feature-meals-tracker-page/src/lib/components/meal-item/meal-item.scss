@@ -1,4 +1,7 @@
+@use 'shared/shared-ui/src/index' as shared;
+
 .meal-item {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -7,6 +10,11 @@
   min-height: 80px;
   padding: var(--ds-space-4);
   border-radius: 25px;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(to right, #fcdf8b, #f6c521);
+  }
 
   &__name-section {
     display: flex;
@@ -26,5 +34,32 @@
     i {
       font-size: 30px;
     }
+
+    svg {
+      width: 40px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-2);
+    font-size: 25px;
+
+    &-time {
+      font-weight: 600;
+    }
+
+    &-name {
+      font-size: 20px;
+    }
+  }
+
+  &__select {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: transparent;
+    border: 3px solid #f6c519;
   }
 }

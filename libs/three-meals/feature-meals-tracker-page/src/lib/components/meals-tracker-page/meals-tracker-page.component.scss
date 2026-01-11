@@ -1,3 +1,5 @@
+@use 'shared/shared-ui/src/index' as shared;
+
 .meals-tracker-page {
   padding: var(--ds-space-5);
   position: relative;
@@ -24,6 +26,10 @@
     font-weight: 700;
     line-height: 1;
     margin-bottom: 20px;
+
+    @include shared.for-size(phone-only) {
+      font-size: 40px;
+    }
   }
 
   &__header-subtitle {
